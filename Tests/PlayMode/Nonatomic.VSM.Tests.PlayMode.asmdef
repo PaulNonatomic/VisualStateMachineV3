@@ -1,0 +1,22 @@
+{
+  "name": "Nonatomic.VSM.Tests.PlayMode",
+  "rootNamespace": "Nonatomic.VSM.Tests.PlayMode",
+  "references": [
+    "Nonatomic.VSM.Runtime",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

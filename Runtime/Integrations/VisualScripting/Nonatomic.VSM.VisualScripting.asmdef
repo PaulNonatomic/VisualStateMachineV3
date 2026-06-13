@@ -1,0 +1,26 @@
+{
+  "name": "Nonatomic.VSM.VisualScripting",
+  "rootNamespace": "Nonatomic.VSM.VisualScripting",
+  "references": [
+    "Nonatomic.VSM.Runtime",
+    "Unity.VisualScripting.Core",
+    "Unity.VisualScripting.Flow"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [
+    "VSM_VISUAL_SCRIPTING"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.unity.visualscripting",
+      "expression": "",
+      "define": "VSM_VISUAL_SCRIPTING"
+    }
+  ],
+  "noEngineReferences": false
+}

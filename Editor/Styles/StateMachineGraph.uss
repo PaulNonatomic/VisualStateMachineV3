@@ -1,0 +1,534 @@
+/* State Machine Graph Stylesheet */
+
+/* Graph View */
+.state-machine-graph-view {
+    flex-grow: 1;
+}
+
+/* Node Base Styles */
+.state-node-view {
+    min-width: 200px;
+    background-color: rgb(45, 45, 45);
+    border-radius: 8px;
+}
+
+/* Node Title Text - consistent shadow for all node types */
+.state-node #title-label,
+.entry-node #title-label,
+.exit-node #title-label,
+.jump-in-node #title-label,
+.jump-out-node #title-label {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    -unity-font-style: bold;
+}
+
+.state-node #title Label,
+.entry-node #title Label,
+.exit-node #title Label,
+.jump-in-node #title Label,
+.jump-out-node #title Label {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    -unity-font-style: bold;
+}
+
+/* Universal node title text - lighter shadow for non-title text */
+.graphElement .unity-text-element {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.state-node-view.selected {
+    border-color: rgb(68, 192, 255);
+    border-width: 2px;
+}
+
+.state-node-view.active-state {
+    border-color: rgb(50, 200, 50);
+    border-width: 3px;
+}
+
+.state-node-view.active-state .node-title {
+    background-color: rgb(40, 100, 40);
+}
+
+/* Entry Node */
+.entry-node-view {
+    min-width: 80px;
+    background-color: rgb(60, 80, 60);
+    border-radius: 20px;
+}
+
+.entry-node-view #title {
+    background-color: rgb(70, 120, 70);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* Exit Node */
+.exit-node-view {
+    min-width: 80px;
+    background-color: rgb(80, 60, 60);
+    border-radius: 20px;
+}
+
+.exit-node-view #title {
+    background-color: rgb(120, 70, 70);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* Blackboard Variable Node */
+.blackboard-variable-node-view {
+    min-width: 120px;
+    background-color: rgb(50, 50, 70);
+    border-radius: 4px;
+}
+
+.blackboard-variable-node-view.getter {
+    border-left-color: rgb(100, 150, 200);
+    border-left-width: 3px;
+}
+
+.blackboard-variable-node-view.setter {
+    border-left-color: rgb(200, 150, 100);
+    border-left-width: 3px;
+}
+
+/* Sub-State Machine Node */
+.sub-state-machine-node-view {
+    min-width: 200px;
+    background-color: rgb(55, 50, 60);
+    border-radius: 8px;
+}
+
+.sub-state-machine-node-view #title {
+    background-color: rgb(80, 60, 90);
+}
+
+.sub-state-machine-node-view .open-button {
+    margin: 8px;
+    padding: 4px 12px;
+    background-color: rgb(70, 100, 130);
+    border-radius: 4px;
+}
+
+.sub-state-machine-node-view .open-button:hover {
+    background-color: rgb(90, 130, 170);
+}
+
+/* Port Styles */
+.port-input {
+    --port-color: rgb(150, 200, 255);
+}
+
+.port-output {
+    --port-color: rgb(200, 255, 150);
+}
+
+.port-transition {
+    --port-color: rgb(255, 200, 100);
+}
+
+.port-data {
+    --port-color: rgb(150, 200, 255);
+}
+
+/* Port Type Colors */
+.port-type-int {
+    --port-color: rgb(51, 153, 204);
+}
+
+.port-type-float {
+    --port-color: rgb(102, 204, 102);
+}
+
+.port-type-bool {
+    --port-color: rgb(204, 51, 51);
+}
+
+.port-type-string {
+    --port-color: rgb(204, 153, 51);
+}
+
+.port-type-vector {
+    --port-color: rgb(204, 204, 51);
+}
+
+.port-type-object {
+    --port-color: rgb(153, 153, 153);
+}
+
+/* Edge Styles */
+.transition-edge {
+    --edge-width: 2;
+}
+
+.transition-edge.transitioning {
+    --edge-width: 4;
+    --edge-color: rgb(50, 200, 50);
+}
+
+.transition-edge.has-warning {
+    --edge-color: rgb(255, 150, 0);
+}
+
+.transition-time-label {
+    position: absolute;
+    background-color: rgba(30, 30, 30, 0.9);
+    color: rgb(255, 255, 255);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+.transition-warning-icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: rgb(255, 150, 0);
+    border-radius: 8px;
+}
+
+/* Blackboard View */
+.blackboard-view {
+    width: 250px;
+    background-color: rgb(40, 40, 40);
+}
+
+.blackboard-view .header {
+    padding: 8px;
+    background-color: rgb(55, 55, 55);
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(30, 30, 30);
+}
+
+.blackboard-view .variable-item {
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 8px;
+    margin: 2px 4px;
+    background-color: rgb(60, 60, 60);
+    border-radius: 4px;
+}
+
+.blackboard-view .variable-item:hover {
+    background-color: rgb(70, 70, 70);
+}
+
+.blackboard-view .type-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    margin-right: 8px;
+}
+
+/* Inspector View */
+.inspector-view {
+    width: 280px;
+    background-color: rgb(40, 40, 40);
+}
+
+.inspector-view .header {
+    padding: 8px;
+    background-color: rgb(55, 55, 55);
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(30, 30, 30);
+}
+
+.inspector-view .property-field {
+    margin: 4px 8px;
+}
+
+/* Toolbar */
+.toolbar-view {
+    height: 28px;
+    background-color: rgb(60, 60, 60);
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(30, 30, 30);
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb-navigation {
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 8px;
+    background-color: rgb(50, 50, 50);
+}
+
+.breadcrumb-button {
+    background-color: transparent;
+    border-width: 0;
+    padding: 2px 6px;
+    color: rgb(150, 200, 255);
+}
+
+.breadcrumb-button:hover {
+    background-color: rgb(70, 70, 70);
+    border-radius: 4px;
+}
+
+.breadcrumb-separator {
+    margin: 0 4px;
+    color: rgb(128, 128, 128);
+}
+
+.breadcrumb-current {
+    font-weight: bold;
+    color: rgb(230, 230, 230);
+}
+
+/* Runtime Monitor Styles */
+.runtime-monitor-view {
+    background-color: rgb(40, 40, 40);
+}
+
+.runtime-monitor-view .instance-dropdown {
+    margin: 4px 8px;
+}
+
+.runtime-monitor-view .state-history {
+    margin: 8px;
+    padding: 8px;
+    background-color: rgb(50, 50, 50);
+    border-radius: 4px;
+}
+
+.runtime-monitor-view .history-item {
+    flex-direction: row;
+    padding: 2px 4px;
+    margin: 1px 0;
+}
+
+.runtime-monitor-view .history-item.current {
+    background-color: rgb(40, 80, 40);
+    border-radius: 2px;
+}
+
+.runtime-monitor-view .history-timestamp {
+    color: rgb(128, 128, 128);
+    font-size: 10px;
+    margin-right: 8px;
+}
+
+/* Selection Highlight */
+.node.selected #selection-border {
+    border-color: rgb(68, 192, 255);
+    border-width: 2px;
+}
+
+/* Comment Node */
+.comment-node {
+    background-color: rgba(255, 255, 200, 0.2);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+/* Minimap */
+.minimap {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 200px;
+    height: 150px;
+    background-color: rgba(30, 30, 30, 0.8);
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: rgb(60, 60, 60);
+}
+
+/* Grid Background */
+GridBackground {
+    --grid-background-color: rgb(25, 25, 25);
+    --line-color: rgba(255, 255, 255, 0.02);
+    --thick-line-color: rgba(255, 255, 255, 0.04);
+    --spacing: 15;
+}
+
+.grid-background {
+    --grid-background-color: rgb(25, 25, 25);
+    --line-color: rgba(255, 255, 255, 0.02);
+    --thick-line-color: rgba(255, 255, 255, 0.04);
+    --spacing: 15;
+}
+
+.state-machine-graph-view GridBackground {
+    --grid-background-color: rgb(25, 25, 25);
+    --line-color: rgba(255, 255, 255, 0.02);
+    --thick-line-color: rgba(255, 255, 255, 0.04);
+    --spacing: 15;
+}
+
+#grid-background {
+    --grid-background-color: rgb(25, 25, 25);
+    --line-color: rgba(255, 255, 255, 0.02);
+    --thick-line-color: rgba(255, 255, 255, 0.04);
+    --spacing: 15;
+}
+
+/* Wire Edge Styles */
+.wire-edge {
+    --edge-width: 2;
+}
+
+.wire-edge.selected {
+    --edge-width: 3;
+}
+
+.wire-edge.backward {
+    --edge-color: rgb(180, 180, 200);
+}
+
+.wire-edge.data-connection {
+    --edge-color: rgb(100, 180, 255);
+}
+
+/* Hide Unity's internal ghost edge during drag */
+.graphView {
+    --ghost-edge-color: transparent;
+}
+
+.state-machine-graph-view {
+    --ghost-edge-color: transparent;
+}
+
+/* Wire Edge Control - Hide default Unity edge rendering */
+.wire-edge-control {
+    /* Hide the default caps */
+    --cap-width: 0;
+    --cap-height: 0;
+    /* Prevent any default edge color from showing through */
+    --edge-color: transparent;
+    --ghost-edge-color: transparent;
+}
+
+/* Hide edge caps when using wire edge */
+.wire-edge-control #caps {
+    display: none;
+}
+
+.wire-edge-control #input-cap {
+    display: none;
+}
+
+.wire-edge-control #output-cap {
+    display: none;
+}
+
+/* Ensure the transition edge using wire control doesn't show default bezier */
+.transition-edge .wire-edge-control {
+    /* Make sure default rendering doesn't show */
+    --edge-width: 0;
+}
+
+/* Hide any default edge line rendering for edges with wire control */
+Edge.transition-edge > EdgeControl.wire-edge-control {
+    --edge-color: transparent;
+}
+
+/* Wire Control Point Handles */
+.wire-control-point-handle {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: rgb(77, 153, 255);
+    border-width: 1px;
+    border-color: rgb(51, 102, 204);
+}
+
+.wire-control-point-handle:hover {
+    background-color: rgb(102, 178, 255);
+    border-color: rgb(77, 128, 230);
+}
+
+.wire-control-point-handle.selected {
+    background-color: rgb(255, 204, 77);
+    border-color: rgb(204, 153, 51);
+}
+
+#control-point-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Coordinates Display */
+.coordinates-display {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    background-color: rgba(25, 25, 25, 0.85);
+    border-radius: 4px;
+    padding: 4px 8px;
+    border-width: 1px;
+    border-color: rgba(60, 60, 60, 0.5);
+    flex-direction: row;
+    align-items: center;
+}
+
+.coordinates-display .coordinates-group {
+    flex-direction: row;
+    align-items: center;
+    margin-right: 12px;
+}
+
+.coordinates-display .coordinates-group:last-child {
+    margin-right: 0;
+}
+
+.coordinates-display .coordinates-label {
+    font-size: 10px;
+    color: rgb(140, 140, 140);
+    -unity-font-style: normal;
+    margin-right: 2px;
+}
+
+.coordinates-display .coordinates-value {
+    font-size: 10px;
+    color: rgb(140, 140, 140);
+    -unity-font-style: normal;
+    min-width: 40px;
+    -unity-text-align: upper-right;
+}
+
+/* SubGraph Preview Popup */
+.subgraph-preview-popup {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.subgraph-preview-popup Button {
+    color: rgb(200, 200, 200);
+}
+
+.subgraph-preview-popup Button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Graph Region Styles */
+.graph-region {
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgba(100, 100, 120, 0.5);
+}
+
+.graph-region #headerContainer {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 6px 10px;
+}
+
+.graph-region #headerContainer #titleLabel {
+    -unity-font-style: bold;
+    color: rgb(220, 220, 220);
+    font-size: 12px;
+}
+
+.graph-region.selected {
+    border-color: rgb(68, 192, 255);
+    border-width: 2px;
+}
+
+.graph-region .region-title-field {
+    min-width: 100px;
+    max-width: 200px;
+}

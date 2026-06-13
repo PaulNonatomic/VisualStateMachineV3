@@ -1,0 +1,25 @@
+<!--
+	Managed-code-stripping preservation for Visual State Machine V3 (IL2CPP / high stripping).
+
+	VSM drives itself by reflection on data stored in graph assets:
+	  - states are instantiated from their assembly-qualified name
+	    (StateMachineInstance -> Activator.CreateInstance),
+	  - [Transition] / [DataIn] / [DataOut] fields are bound by name,
+	  - blackboard values are (de)serialized through reflected generic handlers.
+	None of those references are visible to the managed linker, so under
+	Managed Stripping Level = Medium/High the built-in states and reflected
+	members can be removed, causing runtime failures. This file keeps VSM's own
+	runtime assemblies intact.
+
+	Scope: this preserves VSM's assemblies only. User-defined state types and
+	custom blackboard value types live in other assemblies and must be preserved
+	by the consuming project (its own link.xml, [Preserve], or
+	[assembly: AlwaysLinkAssembly]). See the documentation for details.
+
+	preserve="all" is deliberately conservative (correctness over size); it can be
+	narrowed later if WebGL build size becomes a concern.
+-->
+<linker>
+	<assembly fullname="Nonatomic.VSM.Runtime" preserve="all" />
+	<assembly fullname="Nonatomic.VSM.Visualization" preserve="all" />
+</linker>

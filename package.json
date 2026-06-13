@@ -1,0 +1,36 @@
+﻿{
+  "name": "com.nonatomic.visualstatemachinev3",
+  "version": "0.4.0",
+  "displayName": "Visual State Machine V3",
+  "description": "A visual state machine editor and runtime for Unity: graph-based authoring, a code-first builder API, blackboard data flow, sub-state machines, async states, breakpoint debugging, and IL2CPP/WebGL support.",
+  "license": "MIT",
+  "unity": "2022.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://github.com/PaulNonatomic/VisualStateMachineV3/blob/main/README.md",
+  "changelogUrl": "https://github.com/PaulNonatomic/VisualStateMachineV3/blob/main/CHANGELOG.md",
+  "dependencies": {
+  },
+  "keywords": [
+    "Unity",
+    "Package",
+    "Visual",
+    "StateMachine"
+  ],
+  "author": {
+    "name": "Nonatomic",
+    "email": "paul@nonatomic.co.uk",
+    "url": "https://nonatomic.co.uk/"
+  },
+  "type": "tool",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:PaulNonatomic/VisualStateMachineV3.git"
+  },
+  "testables": [
+    "com.nonatomic.vsm3.tests.editmode",
+    "com.nonatomic.vsm3.tests.playmode"
+  ],
+  "samples": [
+  ]
+}
+  

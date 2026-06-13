@@ -1,0 +1,99 @@
+/* Shared styles for StateMachineGraph and StateMachineRunner inspectors */
+
+/* Section headers */
+.vsm-inspector__section-header {
+    -unity-font-style: bold;
+    font-size: 12px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+/* Read-only info fields */
+.vsm-inspector__info-field {
+    opacity: 0.7;
+}
+
+/* Primary action button */
+.vsm-inspector__action-button {
+    height: 28px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+/* Validation messages */
+.vsm-inspector__help-box {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/* Property drawer row */
+.vsm-property-drawer__row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.vsm-property-drawer__object-field {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.vsm-property-drawer__open-button {
+    width: 50px;
+    margin-left: 4px;
+}
+
+/* Property drawer info line */
+.vsm-property-drawer__info {
+    flex-direction: row;
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+.vsm-property-drawer__info-label {
+    font-size: 10px;
+    color: rgb(170, 170, 170);
+}
+
+.vsm-property-drawer__info-context {
+    font-size: 10px;
+    color: rgb(136, 170, 255);
+}
+
+.vsm-property-drawer__info-error {
+    font-size: 10px;
+    color: rgb(255, 102, 102);
+}
+
+.vsm-property-drawer__info-warning {
+    font-size: 10px;
+    color: rgb(255, 204, 102);
+}
+
+/* Runner inspector - exposed variables */
+.vsm-runner__exposed-variables {
+    margin-top: 8px;
+}
+
+.vsm-runner__variable-row {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/* Runner inspector - runtime info */
+.vsm-runner__runtime-section {
+    margin-top: 8px;
+    padding-top: 4px;
+    border-top-width: 1px;
+    border-top-color: rgb(40, 40, 40);
+}
+
+.vsm-runner__runtime-buttons {
+    flex-direction: row;
+    margin-top: 4px;
+}
+
+.vsm-runner__runtime-buttons > Button {
+    flex-grow: 1;
+    margin-left: 1px;
+    margin-right: 1px;
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Nonatomic.VSM.Tests.EditMode",
+  "rootNamespace": "Nonatomic.VSM.Tests.EditMode",
+  "references": [
+    "Nonatomic.VSM.Runtime",
+    "Nonatomic.VSM.Editor",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.unity.visualeffectgraph",
+      "expression": "",
+      "define": "VSM_VFX_GRAPH"
+    }
+  ],
+  "noEngineReferences": false
+}

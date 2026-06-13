@@ -1,0 +1,20 @@
+{
+  "name": "Nonatomic.VSM.Runtime",
+  "rootNamespace": "Nonatomic.VSM",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [
+    {
+      "name": "com.unity.visualeffectgraph",
+      "expression": "",
+      "define": "VSM_VFX_GRAPH"
+    }
+  ],
+  "noEngineReferences": false
+}
