@@ -1,0 +1,16 @@
+{
+  "name": "Nonatomic.VSM.Samples.PatrollingGuard",
+  "rootNamespace": "Nonatomic.VSM.Samples.PatrollingGuard",
+  "references": [
+    "Nonatomic.VSM.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

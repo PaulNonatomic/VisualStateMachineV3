@@ -1,0 +1,340 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c154fa8b9f32aa14e98604d24ef2e4ed, type: 3}
+  m_Name: CoinCollectorGraph
+  m_EditorClassIdentifier: Nonatomic.VSM.Runtime::Nonatomic.VSM.Graph.StateMachineGraph
+  _entryNodeId: entry-node-001
+  _serializedNodes:
+  - _nodeType: 1
+    _jsonData: '{"_id":"entry-node-001","_position":{"x":100.0,"y":200.0},"_displayName":"Entry","_comment":""}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"menu-state-001","_position":{"x":300.0,"y":200.0},"_displayName":"MenuState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.CoinCollector.States.MenuState,
+      Nonatomic.VSM.Samples.CoinCollector, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"playing-state-001","_position":{"x":520.0,"y":191.0},"_displayName":"PlayingState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.CoinCollector.States.PlayingState,
+      Nonatomic.VSM.Samples.CoinCollector, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"win-state-001","_position":{"x":805.0,"y":141.0},"_displayName":"WinState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.CoinCollector.States.WinState,
+      Nonatomic.VSM.Samples.CoinCollector, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"gameover-state-001","_position":{"x":805.0,"y":271.0},"_displayName":"GameOverState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.CoinCollector.States.GameOverState,
+      Nonatomic.VSM.Samples.CoinCollector, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 6
+    _jsonData: '{"_id":"jumpout-001","_position":{"x":1092.0,"y":227.0},"_displayName":"Jump
+      Out","_comment":"","_channelId":0,"_channelLabel":"Restart"}'
+  - _nodeType: 7
+    _jsonData: '{"_id":"jumpin-001","_position":{"x":100.0,"y":350.0},"_displayName":"Jump
+      In","_comment":"","_channelId":0,"_channelLabel":"Restart"}'
+  _connections:
+  - _id: conn-001
+    _sourceNodeId: entry-node-001
+    _sourcePortName: Start
+    _targetNodeId: menu-state-001
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: conn-002
+    _sourceNodeId: menu-state-001
+    _sourcePortName: Start
+    _targetNodeId: playing-state-001
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: conn-003
+    _sourceNodeId: playing-state-001
+    _sourcePortName: Check Result
+    _targetNodeId: win-state-001
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: conn-004
+    _sourceNodeId: playing-state-001
+    _sourcePortName: Time Up
+    _targetNodeId: gameover-state-001
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: conn-005
+    _sourceNodeId: win-state-001
+    _sourcePortName: Restart
+    _targetNodeId: jumpout-001
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: conn-006
+    _sourceNodeId: gameover-state-001
+    _sourcePortName: Restart
+    _targetNodeId: jumpout-001
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: conn-007
+    _sourceNodeId: jumpin-001
+    _sourcePortName: Continue
+    _targetNodeId: menu-state-001
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  _blackboardDefinitions: []
+  _graphViewData:
+    _viewPosition: {x: 744, y: 188, z: 0}
+    _viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
+    _zoom: 1
+    _hasBeenSet: 1
+  _regions: []
+  _contextTypeAssemblyQualifiedName: Nonatomic.VSM.Samples.CoinCollector.GameController,
+    Nonatomic.VSM.Samples.CoinCollector, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

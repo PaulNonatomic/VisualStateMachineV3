@@ -1,0 +1,20 @@
+{
+	"name": "Nonatomic.VSM.Samples.WorldSpaceGraph.Editor",
+	"rootNamespace": "Nonatomic.VSM.Samples.WorldSpaceGraph.Editor",
+	"references": [
+		"Nonatomic.VSM.Runtime",
+		"Nonatomic.VSM.Visualization",
+		"Nonatomic.VSM.Samples.WorldSpaceGraph"
+	],
+	"includePlatforms": [
+		"Editor"
+	],
+	"excludePlatforms": [],
+	"allowUnsafeCode": false,
+	"overrideReferences": false,
+	"precompiledReferences": [],
+	"autoReferenced": true,
+	"defineConstraints": [],
+	"versionDefines": [],
+	"noEngineReferences": false
+}

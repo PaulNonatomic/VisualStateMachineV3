@@ -1,0 +1,16 @@
+{
+  "name": "Nonatomic.VSM.Samples.TrafficLight",
+  "rootNamespace": "Nonatomic.VSM.Samples.TrafficLight",
+  "references": [
+    "Nonatomic.VSM.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

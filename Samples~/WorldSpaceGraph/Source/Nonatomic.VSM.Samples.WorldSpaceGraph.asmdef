@@ -1,0 +1,17 @@
+{
+	"name": "Nonatomic.VSM.Samples.WorldSpaceGraph",
+	"rootNamespace": "Nonatomic.VSM.Samples.WorldSpaceGraph",
+	"references": [
+		"Nonatomic.VSM.Runtime",
+		"Nonatomic.VSM.Visualization"
+	],
+	"includePlatforms": [],
+	"excludePlatforms": [],
+	"allowUnsafeCode": false,
+	"overrideReferences": false,
+	"precompiledReferences": [],
+	"autoReferenced": true,
+	"defineConstraints": [],
+	"versionDefines": [],
+	"noEngineReferences": false
+}

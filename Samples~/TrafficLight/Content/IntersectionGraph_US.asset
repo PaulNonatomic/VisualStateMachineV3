@@ -1,0 +1,392 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c154fa8b9f32aa14e98604d24ef2e4ed, type: 3}
+  m_Name: IntersectionGraph_US
+  m_EditorClassIdentifier: Nonatomic.VSM.Runtime::Nonatomic.VSM.Graph.StateMachineGraph
+  _entryNodeId: ius-entry
+  _serializedNodes:
+  - _nodeType: 1
+    _jsonData: '{"_id":"ius-entry","_position":{"x":100.0,"y":258.0},"_displayName":"Entry","_comment":""}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"ius-allred1","_position":{"x":313.0,"y":228.0},"_displayName":"AllRedPhaseState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.AllRedPhaseState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"1","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"ius-nsgreen","_position":{"x":693.0,"y":228.0},"_displayName":"NSGreenPhaseState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.NSGreenPhaseState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"5","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"ius-nsyellow","_position":{"x":1073.0,"y":228.0},"_displayName":"NSYellowPhaseState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.NSYellowPhaseState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"2","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"ius-allred2","_position":{"x":1453.0,"y":228.0},"_displayName":"AllRedPhaseState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.AllRedPhaseState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"1","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"ius-ewgreen","_position":{"x":1833.0,"y":228.0},"_displayName":"EWGreenPhaseState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.EWGreenPhaseState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"5","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 0
+    _jsonData: '{"_id":"ius-ewyellow","_position":{"x":2213.0,"y":228.0},"_displayName":"EWYellowPhaseState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.EWYellowPhaseState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"2","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 6
+    _jsonData: '{"_id":"ius-jumpout","_position":{"x":2593.0,"y":233.0},"_displayName":"Jump
+      Out","_comment":"","_channelId":0,"_channelLabel":"Loop"}'
+  - _nodeType: 7
+    _jsonData: '{"_id":"ius-jumpin","_position":{"x":21.0,"y":329.0},"_displayName":"Jump
+      In","_comment":"","_channelId":0,"_channelLabel":"Loop"}'
+  _connections:
+  - _id: ius-conn-001
+    _sourceNodeId: ius-entry
+    _sourcePortName: Start
+    _targetNodeId: ius-allred1
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ius-conn-002
+    _sourceNodeId: ius-allred1
+    _sourcePortName: Next
+    _targetNodeId: ius-nsgreen
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ius-conn-003
+    _sourceNodeId: ius-nsgreen
+    _sourcePortName: Next
+    _targetNodeId: ius-nsyellow
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ius-conn-004
+    _sourceNodeId: ius-nsyellow
+    _sourcePortName: Next
+    _targetNodeId: ius-allred2
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ius-conn-005
+    _sourceNodeId: ius-allred2
+    _sourcePortName: Next
+    _targetNodeId: ius-ewgreen
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ius-conn-006
+    _sourceNodeId: ius-ewgreen
+    _sourcePortName: Next
+    _targetNodeId: ius-ewyellow
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ius-conn-007
+    _sourceNodeId: ius-ewyellow
+    _sourcePortName: Next
+    _targetNodeId: ius-jumpout
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ius-conn-008
+    _sourceNodeId: ius-jumpin
+    _sourcePortName: Continue
+    _targetNodeId: ius-allred1
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  _blackboardDefinitions: []
+  _graphViewData:
+    _viewPosition: {x: 308, y: 224, z: 0}
+    _viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+    _zoom: 1
+    _hasBeenSet: 1
+  _contextTypeAssemblyQualifiedName:

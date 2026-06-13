@@ -1,0 +1,254 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c154fa8b9f32aa14e98604d24ef2e4ed, type: 3}
+  m_Name: CreatureGraph
+  m_EditorClassIdentifier: Nonatomic.VSM.Runtime::Nonatomic.VSM.Graph.StateMachineGraph
+  _entryNodeId: 8c64b22e-56b1-42c5-98a5-9661be509e74
+  _serializedNodes:
+  - _nodeType: 1
+    _nodeId: 8c64b22e-56b1-42c5-98a5-9661be509e74
+    _jsonData: '{"_id":"8c64b22e-56b1-42c5-98a5-9661be509e74","_position":{"x":0.0,"y":0.0},"_displayName":"Entry","_comment":""}'
+  - _nodeType: 0
+    _nodeId: ea427bbb-3cbb-427e-b6bc-f5943ddd9a95
+    _jsonData: '{"_id":"ea427bbb-3cbb-427e-b6bc-f5943ddd9a95","_position":{"x":139.0,"y":-118.0},"_displayName":"Idle","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.WorldSpaceGraph.IdleState,
+      Nonatomic.VSM.Samples.WorldSpaceGraph, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[],"_isEntryState":true}'
+  - _nodeType: 0
+    _nodeId: fe38daee-a5af-4041-a4fc-2db8614bd4b4
+    _jsonData: '{"_id":"fe38daee-a5af-4041-a4fc-2db8614bd4b4","_position":{"x":496.0,"y":-94.0},"_displayName":"Wander","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.WorldSpaceGraph.WanderState,
+      Nonatomic.VSM.Samples.WorldSpaceGraph, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 0
+    _nodeId: 6a34021a-5b28-4859-a02b-48db9b9374dd
+    _jsonData: '{"_id":"6a34021a-5b28-4859-a02b-48db9b9374dd","_position":{"x":496.0,"y":24.0},"_displayName":"Excited","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.WorldSpaceGraph.ExcitedState,
+      Nonatomic.VSM.Samples.WorldSpaceGraph, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[],"_isEntryState":false}'
+  _connections:
+  - _id: d2dac9ff-5d6b-4e21-8d43-0175fb28a64b
+    _sourceNodeId: 8c64b22e-56b1-42c5-98a5-9661be509e74
+    _sourcePortName: Start
+    _targetNodeId: ea427bbb-3cbb-427e-b6bc-f5943ddd9a95
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: 44520cf4-f51e-4873-96ed-68fdc71eb87e
+    _sourceNodeId: ea427bbb-3cbb-427e-b6bc-f5943ddd9a95
+    _sourcePortName: OnBored
+    _targetNodeId: fe38daee-a5af-4041-a4fc-2db8614bd4b4
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: 62b7239e-a125-4dea-a923-a09e64a47295
+    _sourceNodeId: ea427bbb-3cbb-427e-b6bc-f5943ddd9a95
+    _sourcePortName: OnPoked
+    _targetNodeId: 6a34021a-5b28-4859-a02b-48db9b9374dd
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: d8827f2f-e708-40cd-8e7c-ea259c9306ef
+    _sourceNodeId: fe38daee-a5af-4041-a4fc-2db8614bd4b4
+    _sourcePortName: OnArrived
+    _targetNodeId: ea427bbb-3cbb-427e-b6bc-f5943ddd9a95
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: -2.6450098, y: -201.02003}
+    _hasMidpointOffset: 1
+    _midpointTangent: {x: -499.90494, y: -18.514997}
+    _hasMidpointTangent: 1
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ebffa12c-d072-4002-a814-19919897dfb5
+    _sourceNodeId: 6a34021a-5b28-4859-a02b-48db9b9374dd
+    _sourcePortName: OnSettled
+    _targetNodeId: ea427bbb-3cbb-427e-b6bc-f5943ddd9a95
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: -448.3275, y: 6.612502}
+    _hasMidpointTangent: 1
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  _blackboardDefinitions: []
+  _graphViewData:
+    _viewPosition: {x: 221, y: 436, z: 0}
+    _viewScale: {x: 1, y: 1, z: 1}
+    _zoom: 1
+    _hasBeenSet: 1
+    _openPeekPreviews: []
+    _bookmarks: []
+    _breakpoints: []
+  _regions: []
+  _contextTypeAssemblyQualifiedName: Nonatomic.VSM.Samples.WorldSpaceGraph.CreatureController,
+    Nonatomic.VSM.Samples.WorldSpaceGraph, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

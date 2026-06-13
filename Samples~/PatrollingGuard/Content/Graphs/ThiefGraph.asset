@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c154fa8b9f32aa14e98604d24ef2e4ed, type: 3}
+  m_Name: TargetGraph
+  m_EditorClassIdentifier: Nonatomic.VSM.Runtime::Nonatomic.VSM.Graph.StateMachineGraph
+  _entryNodeId: fa56ec42-8ab1-4af9-bb7d-050b78b3e8aa
+  _serializedNodes:
+  - _nodeType: 1
+    _nodeId: fa56ec42-8ab1-4af9-bb7d-050b78b3e8aa
+    _jsonData: '{"_id":"fa56ec42-8ab1-4af9-bb7d-050b78b3e8aa","_position":{"x":-324.0,"y":-38.0},"_displayName":"Entry","_comment":""}'
+  - _nodeType: 0
+    _nodeId: cbc7b104-8637-4cc4-90d6-e4e9c33bdb9a
+    _jsonData: '{"_id":"cbc7b104-8637-4cc4-90d6-e4e9c33bdb9a","_position":{"x":-154.0,"y":-50.0},"_displayName":"WanderState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.PatrollingGuard.States.WanderState,
+      Nonatomic.VSM.Samples.PatrollingGuard, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 0
+    _nodeId: d55b450d-8914-40d6-a876-e12d6aa48b70
+    _jsonData: '{"_id":"d55b450d-8914-40d6-a876-e12d6aa48b70","_position":{"x":86.0,"y":-50.0},"_displayName":"FleeState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.PatrollingGuard.States.FleeState,
+      Nonatomic.VSM.Samples.PatrollingGuard, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 6
+    _nodeId: 648a8898-2b21-45f7-ba8c-719855384f66
+    _jsonData: '{"_id":"648a8898-2b21-45f7-ba8c-719855384f66","_position":{"x":290.0,"y":-16.0},"_displayName":"Portal
+      Out","_comment":"","_channelId":0,"_channelLabel":""}'
+  - _nodeType: 7
+    _nodeId: c391636c-b938-48cc-b2f3-a7ddd394ef21
+    _jsonData: '{"_id":"c391636c-b938-48cc-b2f3-a7ddd394ef21","_position":{"x":-410.0,"y":35.0},"_displayName":"Portal
+      In","_comment":"","_channelId":0,"_channelLabel":"Channel 0"}'
+  _connections:
+  - _id: 988013f9-4db4-49b5-8652-6b10f84bd34c
+    _sourceNodeId: fa56ec42-8ab1-4af9-bb7d-050b78b3e8aa
+    _sourcePortName: Start
+    _targetNodeId: cbc7b104-8637-4cc4-90d6-e4e9c33bdb9a
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: 852156e7-22e0-4492-8d97-cadad088c905
+    _sourceNodeId: cbc7b104-8637-4cc4-90d6-e4e9c33bdb9a
+    _sourcePortName: Guard Detected
+    _targetNodeId: d55b450d-8914-40d6-a876-e12d6aa48b70
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ab951e52-3821-4242-a2a5-6cf1c828ecb3
+    _sourceNodeId: d55b450d-8914-40d6-a876-e12d6aa48b70
+    _sourcePortName: Escaped
+    _targetNodeId: 648a8898-2b21-45f7-ba8c-719855384f66
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: 981779ed-1e14-4e66-970e-d718efa53539
+    _sourceNodeId: c391636c-b938-48cc-b2f3-a7ddd394ef21
+    _sourcePortName: Continue
+    _targetNodeId: cbc7b104-8637-4cc4-90d6-e4e9c33bdb9a
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  _blackboardDefinitions: []
+  _graphViewData:
+    _viewPosition: {x: 588, y: 331, z: 0}
+    _viewScale: {x: 1, y: 1, z: 1}
+    _zoom: 1
+    _hasBeenSet: 1
+    _openPeekPreviews: []
+    _bookmarks: []
+    _breakpoints: []
+  _regions: []
+  _contextTypeAssemblyQualifiedName: 

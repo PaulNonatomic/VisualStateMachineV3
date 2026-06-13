@@ -1,0 +1,16 @@
+{
+  "name": "Nonatomic.VSM.Samples.Blackboard",
+  "rootNamespace": "Nonatomic.VSM.Samples.Blackboard",
+  "references": [
+    "Nonatomic.VSM.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

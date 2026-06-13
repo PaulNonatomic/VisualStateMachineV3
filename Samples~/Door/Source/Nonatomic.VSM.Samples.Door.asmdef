@@ -1,0 +1,16 @@
+{
+  "name": "Nonatomic.VSM.Samples.Door",
+  "rootNamespace": "Nonatomic.VSM.Samples.Door",
+  "references": [
+    "Nonatomic.VSM.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

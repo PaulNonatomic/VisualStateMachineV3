@@ -1,0 +1,16 @@
+{
+  "name": "Nonatomic.VSM.Samples.Dialogue",
+  "rootNamespace": "Nonatomic.VSM.Samples.Dialogue",
+  "references": [
+    "Nonatomic.VSM.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

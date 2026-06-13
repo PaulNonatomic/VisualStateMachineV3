@@ -1,0 +1,201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6937070736823023511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4362014342127253425}
+  - component: {fileID: 3225012313147800284}
+  m_Layer: 0
+  m_Name: TrafficLightGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4362014342127253425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6937070736823023511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -4.94}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1037591402119357105}
+  - {fileID: 3419322756533757526}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3225012313147800284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6937070736823023511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73b503308ce45018d77ad6f9c5e3f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nonatomic.VSM.Samples.TrafficLight::Nonatomic.VSM.Samples.TrafficLight.TrafficLightGroup
+  _controllers:
+  - {fileID: 8851113196920484945}
+  - {fileID: 6611535504070406326}
+--- !u!1001 &6840140304742640877
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4362014342127253425}
+    m_Modifications:
+    - target: {fileID: 4135756672217612704, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_Name
+      value: TrafficLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+--- !u!4 &3419322756533757526 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+  m_PrefabInstance: {fileID: 6840140304742640877}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6611535504070406326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 373213687789100123, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+  m_PrefabInstance: {fileID: 6840140304742640877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7f178cb9a18c74a9e9fb0609925bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nonatomic.VSM.Samples.TrafficLight::Nonatomic.VSM.Samples.TrafficLight.TrafficLightController
+--- !u!1001 &9221282215639132170
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4362014342127253425}
+    m_Modifications:
+    - target: {fileID: 2187264225345384070, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135756672217612704, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_Name
+      value: TrafficLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+--- !u!4 &1037591402119357105 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8187210642334075579, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+  m_PrefabInstance: {fileID: 9221282215639132170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8851113196920484945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 373213687789100123, guid: 869daed75c1188c4c99dab673ea14b96, type: 3}
+  m_PrefabInstance: {fileID: 9221282215639132170}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7f178cb9a18c74a9e9fb0609925bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nonatomic.VSM.Samples.TrafficLight::Nonatomic.VSM.Samples.TrafficLight.TrafficLightController

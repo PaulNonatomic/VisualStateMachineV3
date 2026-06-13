@@ -1,0 +1,16 @@
+{
+  "name": "Nonatomic.VSM.Samples.BuiltInStates",
+  "rootNamespace": "Nonatomic.VSM.Samples.BuiltInStates",
+  "references": [
+    "Nonatomic.VSM.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

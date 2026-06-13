@@ -1,0 +1,746 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c154fa8b9f32aa14e98604d24ef2e4ed, type: 3}
+  m_Name: TrafficLightGraph_UK
+  m_EditorClassIdentifier: Nonatomic.VSM.Runtime::Nonatomic.VSM.Graph.StateMachineGraph
+  _entryNodeId: uk-entry
+  _serializedNodes:
+  - _nodeType: 1
+    _nodeId: uk-entry
+    _jsonData: '{"_id":"uk-entry","_position":{"x":1594.0,"y":38.0},"_displayName":"Entry","_comment":""}'
+  - _nodeType: 0
+    _nodeId: uk-red
+    _jsonData: '{"_id":"uk-red","_position":{"x":1729.0,"y":38.0},"_displayName":"RedLightState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.RedLightState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"3","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 0
+    _nodeId: uk-redyellow
+    _jsonData: '{"_id":"uk-redyellow","_position":{"x":2187.0,"y":118.0},"_displayName":"RedYellowLightState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.RedYellowLightState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"2","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 0
+    _nodeId: uk-green
+    _jsonData: '{"_id":"uk-green","_position":{"x":2686.0,"y":243.0},"_displayName":"GreenLightState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.GreenLightState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"5","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 0
+    _nodeId: uk-yellow
+    _jsonData: '{"_id":"uk-yellow","_position":{"x":3200.0,"y":347.0},"_displayName":"YellowLightState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.YellowLightState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[{"_fieldName":"Duration","_jsonValue":"3","_typeAssemblyQualifiedName":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}],"_isEntryState":false}'
+  - _nodeType: 6
+    _nodeId: uk-jumpout
+    _jsonData: '{"_id":"uk-jumpout","_position":{"x":4704.0,"y":586.0},"_displayName":"Jump
+      Out","_comment":"","_channelId":0,"_channelLabel":"Loop"}'
+  - _nodeType: 7
+    _nodeId: uk-jumpin
+    _jsonData: '{"_id":"uk-jumpin","_position":{"x":1513.0,"y":104.0},"_displayName":"Jump
+      In","_comment":"","_channelId":0,"_channelLabel":"Loop"}'
+  - _nodeType: 3
+    _nodeId: 6edbbae7-55a3-4eba-b1ad-ce9056494f7d
+    _jsonData: '{"_id":"6edbbae7-55a3-4eba-b1ad-ce9056494f7d","_position":{"x":4144.0,"y":593.0},"_displayName":"Loops","_comment":"","_variableKey":"Loops","_mode":0,"_typeAssemblyQualifiedName":"System.Boolean,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"}'
+  - _nodeType: 0
+    _nodeId: a74a2d19-8b80-4a12-a509-a1b53f334d05
+    _jsonData: '{"_id":"a74a2d19-8b80-4a12-a509-a1b53f334d05","_position":{"x":4394.0,"y":546.0},"_displayName":"ConditionState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.States.ConditionState,
+      Nonatomic.VSM.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 2
+    _nodeId: 8ccb75e7-5c44-46c8-9f8a-0b9a130651f9
+    _jsonData: '{"_id":"8ccb75e7-5c44-46c8-9f8a-0b9a130651f9","_position":{"x":4704.0,"y":649.0},"_displayName":"Exit","_comment":"","_exitName":"Exit","_exitCode":0}'
+  - _nodeType: 3
+    _nodeId: ac0e6cc3-7c75-4a7b-a5e9-c983d07e2bbf
+    _jsonData: '{"_id":"ac0e6cc3-7c75-4a7b-a5e9-c983d07e2bbf","_position":{"x":1540.0,"y":175.0},"_displayName":"TrafficLightGroup","_comment":"","_variableKey":"TrafficLightGroup","_mode":0,"_typeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.TrafficLightGroup,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - _nodeType: 3
+    _nodeId: ac336f7e-1072-40c5-b527-933cc3bb7f21
+    _jsonData: '{"_id":"ac336f7e-1072-40c5-b527-933cc3bb7f21","_position":{"x":1980.0,"y":191.0},"_displayName":"TrafficLightGroup","_comment":"","_variableKey":"TrafficLightGroup","_mode":0,"_typeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.TrafficLightGroup,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - _nodeType: 3
+    _nodeId: 2f6a7a0f-8a20-4df7-b19d-5bb440ff39a8
+    _jsonData: '{"_id":"2f6a7a0f-8a20-4df7-b19d-5bb440ff39a8","_position":{"x":2438.0,"y":306.0},"_displayName":"TrafficLightGroup","_comment":"","_variableKey":"TrafficLightGroup","_mode":0,"_typeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.TrafficLightGroup,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - _nodeType: 3
+    _nodeId: 63be459e-e4b8-4f5c-b21f-27e9f18f13e9
+    _jsonData: '{"_id":"63be459e-e4b8-4f5c-b21f-27e9f18f13e9","_position":{"x":2937.0,"y":427.0},"_displayName":"TrafficLightGroup","_comment":"","_variableKey":"TrafficLightGroup","_mode":0,"_typeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.TrafficLightGroup,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - _nodeType: 0
+    _nodeId: cd149afc-8023-49f1-81c4-15aedb21d1ae
+    _jsonData: '{"_id":"cd149afc-8023-49f1-81c4-15aedb21d1ae","_position":{"x":3701.0,"y":427.0},"_displayName":"RedLightState","_comment":"","_stateTypeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.States.RedLightState,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","_stateTypeScriptGuid":"","_propertyOverrides":[],"_isEntryState":false}'
+  - _nodeType: 3
+    _nodeId: 78021938-1046-483a-8bfe-fbd28c10161f
+    _jsonData: '{"_id":"78021938-1046-483a-8bfe-fbd28c10161f","_position":{"x":3451.0,"y":530.0},"_displayName":"TrafficLightGroup","_comment":"","_variableKey":"TrafficLightGroup","_mode":0,"_typeAssemblyQualifiedName":"Nonatomic.VSM.Samples.TrafficLight.TrafficLightGroup,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  _connections:
+  - _id: uk-conn-001
+    _sourceNodeId: uk-entry
+    _sourcePortName: Start
+    _targetNodeId: uk-red
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: uk-conn-002
+    _sourceNodeId: uk-red
+    _sourcePortName: Next
+    _targetNodeId: uk-redyellow
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: uk-conn-003
+    _sourceNodeId: uk-redyellow
+    _sourcePortName: Next
+    _targetNodeId: uk-green
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: uk-conn-004
+    _sourceNodeId: uk-green
+    _sourcePortName: Next
+    _targetNodeId: uk-yellow
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: uk-conn-006
+    _sourceNodeId: uk-jumpin
+    _sourcePortName: Continue
+    _targetNodeId: uk-red
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: f52b1a12-f7b7-4b78-be06-b3dbe6cbef87
+    _sourceNodeId: 6edbbae7-55a3-4eba-b1ad-ce9056494f7d
+    _sourcePortName: bool
+    _targetNodeId: a74a2d19-8b80-4a12-a509-a1b53f334d05
+    _targetPortName: Condition
+    _connectionType: 0
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: a9d4258f-34d7-4182-b723-e89b3303241d
+    _sourceNodeId: a74a2d19-8b80-4a12-a509-a1b53f334d05
+    _sourcePortName: True
+    _targetNodeId: uk-jumpout
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: 97f93311-9e42-459c-b34a-dc0fcf5a2eaf
+    _sourceNodeId: a74a2d19-8b80-4a12-a509-a1b53f334d05
+    _sourcePortName: False
+    _targetNodeId: 8ccb75e7-5c44-46c8-9f8a-0b9a130651f9
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: a9d959ed-e31d-4330-8f0f-5a67de39c285
+    _sourceNodeId: ac0e6cc3-7c75-4a7b-a5e9-c983d07e2bbf
+    _sourcePortName: TrafficLightGroup
+    _targetNodeId: uk-red
+    _targetPortName: ActiveGroup
+    _connectionType: 2
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: bd11f4b4-aa49-44e0-9331-58b90d7fe3a6
+    _sourceNodeId: ac336f7e-1072-40c5-b527-933cc3bb7f21
+    _sourcePortName: TrafficLightGroup
+    _targetNodeId: uk-redyellow
+    _targetPortName: ActiveGroup
+    _connectionType: 2
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: 50d500f1-5261-447b-9b12-78eab8259b01
+    _sourceNodeId: 2f6a7a0f-8a20-4df7-b19d-5bb440ff39a8
+    _sourcePortName: TrafficLightGroup
+    _targetNodeId: uk-green
+    _targetPortName: ActiveGroup
+    _connectionType: 2
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: b1d6f864-0241-4ade-b27e-a61f1158e4fb
+    _sourceNodeId: 63be459e-e4b8-4f5c-b21f-27e9f18f13e9
+    _sourcePortName: TrafficLightGroup
+    _targetNodeId: uk-yellow
+    _targetPortName: ActiveGroup
+    _connectionType: 2
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: ce4e4fa2-b4fd-4470-b13d-16e551a93d7a
+    _sourceNodeId: uk-yellow
+    _sourcePortName: Next
+    _targetNodeId: cd149afc-8023-49f1-81c4-15aedb21d1ae
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: d2ce7e6b-0eb1-456e-a736-d3e5482eb83b
+    _sourceNodeId: cd149afc-8023-49f1-81c4-15aedb21d1ae
+    _sourcePortName: Next
+    _targetNodeId: a74a2d19-8b80-4a12-a509-a1b53f334d05
+    _targetPortName: Enter
+    _connectionType: 1
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  - _id: b4dcf534-18ca-4faf-a2cc-e09fa47951d0
+    _sourceNodeId: 78021938-1046-483a-8bfe-fbd28c10161f
+    _sourcePortName: TrafficLightGroup
+    _targetNodeId: cd149afc-8023-49f1-81c4-15aedb21d1ae
+    _targetPortName: TrafficLightGroup
+    _connectionType: 2
+    _transitionTime: 0
+    _easingCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _subdivisionLevel: 0
+    _quarterPointOffset: {x: 0, y: 0}
+    _hasQuarterPointOffset: 0
+    _quarterPointTangent: {x: 0, y: 0}
+    _hasQuarterPointTangent: 0
+    _midpointOffset: {x: 0, y: 0}
+    _hasMidpointOffset: 0
+    _midpointTangent: {x: 0, y: 0}
+    _hasMidpointTangent: 0
+    _threeQuarterPointOffset: {x: 0, y: 0}
+    _hasThreeQuarterPointOffset: 0
+    _threeQuarterPointTangent: {x: 0, y: 0}
+    _hasThreeQuarterPointTangent: 0
+    _eighthPointOffset: {x: 0, y: 0}
+    _hasEighthPointOffset: 0
+    _eighthPointTangent: {x: 0, y: 0}
+    _hasEighthPointTangent: 0
+    _threeEighthsPointOffset: {x: 0, y: 0}
+    _hasThreeEighthsPointOffset: 0
+    _threeEighthsPointTangent: {x: 0, y: 0}
+    _hasThreeEighthsPointTangent: 0
+    _fiveEighthsPointOffset: {x: 0, y: 0}
+    _hasFiveEighthsPointOffset: 0
+    _fiveEighthsPointTangent: {x: 0, y: 0}
+    _hasFiveEighthsPointTangent: 0
+    _sevenEighthsPointOffset: {x: 0, y: 0}
+    _hasSevenEighthsPointOffset: 0
+    _sevenEighthsPointTangent: {x: 0, y: 0}
+    _hasSevenEighthsPointTangent: 0
+  _blackboardDefinitions:
+  - _key: Loops
+    _typeAssemblyQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+      PublicKeyToken=b77a5c561934e089
+    _defaultValueJson: 
+    _defaultObjectReference: {fileID: 0}
+    _isExposed: 0
+    _isExposedInGraph: 0
+    _exposureDirection: 1
+    _category: 
+    _tooltip: 
+    _graphPosition: {x: 0, y: 0}
+  - _key: TrafficLightGroup
+    _typeAssemblyQualifiedName: Nonatomic.VSM.Samples.TrafficLight.TrafficLightGroup,
+      Nonatomic.VSM.Samples.TrafficLight, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _defaultValueJson: 
+    _defaultObjectReference: {fileID: 0}
+    _isExposed: 0
+    _isExposedInGraph: 0
+    _exposureDirection: 1
+    _category: 
+    _tooltip: 
+    _graphPosition: {x: 0, y: 0}
+  _graphViewData:
+    _viewPosition: {x: -131, y: 377, z: 0}
+    _viewScale: {x: 0.32690176, y: 0.32690176, z: 1}
+    _zoom: 1
+    _hasBeenSet: 1
+    _openPeekPreviews: []
+    _bookmarks: []
+    _breakpoints: []
+  _regions: []
+  _contextTypeAssemblyQualifiedName: 

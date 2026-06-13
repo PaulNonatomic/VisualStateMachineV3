@@ -1,0 +1,16 @@
+{
+  "name": "Nonatomic.VSM.Samples.SiegeTank",
+  "rootNamespace": "Nonatomic.VSM.Samples.SiegeTank",
+  "references": [
+    "Nonatomic.VSM.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Nonatomic.VSM.Samples.CompositeStateMachine",
+  "rootNamespace": "Nonatomic.VSM.Samples.CompositeStateMachine",
+  "references": [
+    "Nonatomic.VSM.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
