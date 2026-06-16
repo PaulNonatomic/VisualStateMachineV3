@@ -26,14 +26,10 @@ namespace Nonatomic.VSM.Editor.Graph
 		private ToolbarButton _backButton;
 		private BreadcrumbNavigation _breadcrumbNavigation;
 		private ToolbarMenu _viewOptionsMenu;
+		private ToolbarMenu _settingsMenu;
+		private ToolbarMenu _windowsMenu;
 		private ToolbarMenu _bookmarkMenu;
 		private ToolbarMenu _layoutMenu;
-		private ToolbarToggle _blackboardToggle;
-		private ToolbarToggle _inspectorToggle;
-		private ToolbarToggle _miniMapToggle;
-		private ToolbarToggle _stateListToggle;
-		private ToolbarToggle _timelineToggle;
-		private ToolbarToggle _breakpointsToggle;
 		private ToolbarToggle _splitViewToggle;
 		private ToolbarToggle _linkScrollToggle;
 		private ToolbarMenu _instanceMenu;
@@ -110,18 +106,14 @@ namespace Nonatomic.VSM.Editor.Graph
 
 			Add(_instanceContainer);
 
-			// Flexible spacer
-			var spacer = new VisualElement();
-			spacer.name = "vsm-toolbar__spacer";
-			spacer.style.flexGrow = 1;
-			Add(spacer);
+			// ---- Frequent view actions: kept on the LEFT, next to navigation ----
 
-			// Center view button
+			// Center / frame-all button
 			_centerButton = new ToolbarButton(OnCenterClicked)
 			{
 				name = "vsm-toolbar__center-button",
 				text = "",
-				tooltip = "Center the view on all nodes"
+				tooltip = "Frame all nodes"
 			};
 			_centerButton.Add(CreateToolbarIcon("center-align"));
 			Add(_centerButton);
@@ -136,11 +128,25 @@ namespace Nonatomic.VSM.Editor.Graph
 			searchButton.Add(CreateToolbarIcon("search"));
 			Add(searchButton);
 
-			// View options menu
+			// Layout menu
+			_layoutMenu = new ToolbarMenu { text = "", name = "vsm-toolbar__layout-menu" };
+			_layoutMenu.tooltip = "Layout options";
+			_layoutMenu.Insert(0, CreateToolbarIcon("view-structure-up"));
+			_layoutMenu.menu.AppendAction("Auto Layout (Hierarchical)", action => ApplyLayout(true));
+			_layoutMenu.menu.AppendAction("Grid Layout", action => ApplyLayout(false));
+			Add(_layoutMenu);
+
+			// Flexible spacer: splits the bar into a left (navigation/view) group and a right
+			// (menus/panels/file) group, instead of marooning every control on the far right.
+			var spacer = new VisualElement();
+			spacer.name = "vsm-toolbar__spacer";
+			spacer.style.flexGrow = 1;
+			Add(spacer);
+
+			// ---- View menu: framing actions + view behaviour (Frame All is the center button) ----
 			_viewOptionsMenu = new ToolbarMenu { text = "", name = "vsm-toolbar__view-menu" };
-			_viewOptionsMenu.tooltip = "View options";
+			_viewOptionsMenu.tooltip = "View";
 			_viewOptionsMenu.Insert(0, CreateToolbarIcon("eye"));
-			_viewOptionsMenu.menu.AppendAction("Frame All", action => { _window.GraphView?.FrameAll(); });
 			_viewOptionsMenu.menu.AppendAction("Frame Selection", action => { _window.GraphView?.FrameSelection(); });
 			_viewOptionsMenu.menu.AppendAction("Frame Entry Node", action => { _window.GraphView?.FrameEntryNode(); });
 			_viewOptionsMenu.menu.AppendSeparator();
@@ -159,41 +165,35 @@ namespace Nonatomic.VSM.Editor.Graph
 			AppendToggleAction(_viewOptionsMenu.menu, "Follow Sub-State Machines",
 				() => _window.FollowSubStateMachines,
 				() => _window.FollowSubStateMachines = !_window.FollowSubStateMachines);
-			AppendToggleAction(_viewOptionsMenu.menu, "Show Mini-Map",
-				() => _window.MiniMapView?.IsVisible == true,
-				() => _window.MiniMapView?.ToggleVisibility());
-			_viewOptionsMenu.menu.AppendSeparator();
-			AppendToggleAction(_viewOptionsMenu.menu, "Debug Mode",
+			Add(_viewOptionsMenu);
+
+			// ---- Settings menu: persistent display preferences ----
+			_settingsMenu = new ToolbarMenu { text = "Settings", name = "vsm-toolbar__settings-menu" };
+			_settingsMenu.tooltip = "Display settings";
+			AppendToggleAction(_settingsMenu.menu, "Connecting Line Style/Wire (Bezier)",
+				() => EdgeSettings.Instance.RendererType == EdgeRendererType.Wire,
+				() => SetEdgeRendererType(EdgeRendererType.Wire));
+			AppendToggleAction(_settingsMenu.menu, "Connecting Line Style/Default (Unity)",
+				() => EdgeSettings.Instance.RendererType == EdgeRendererType.Default,
+				() => SetEdgeRendererType(EdgeRendererType.Default));
+			AppendToggleAction(_settingsMenu.menu, "Port Colors/Type Colors",
+				() => PortSettings.Instance.ColorMode == PortColorMode.TypeBased,
+				() => SetPortColorMode(PortColorMode.TypeBased));
+			AppendToggleAction(_settingsMenu.menu, "Port Colors/State Colors",
+				() => PortSettings.Instance.ColorMode == PortColorMode.StateBased,
+				() => SetPortColorMode(PortColorMode.StateBased));
+			AppendToggleAction(_settingsMenu.menu, "Show Type Icons",
+				() => PortSettings.Instance.ShowTypeIcons,
+				() => ToggleTypeIcons());
+			_settingsMenu.menu.AppendSeparator();
+			AppendToggleAction(_settingsMenu.menu, "Debug Mode",
 				() => StateMachineGraphView.DebugMode,
 				() =>
 				{
 					StateMachineGraphView.DebugMode = !StateMachineGraphView.DebugMode;
 					UnityEngine.Debug.Log($"[VSM] Debug Mode: {(StateMachineGraphView.DebugMode ? "ENABLED" : "DISABLED")}");
 				});
-
-			// Connecting line style submenu
-			_viewOptionsMenu.menu.AppendSeparator();
-			AppendToggleAction(_viewOptionsMenu.menu, "Connecting Line Style/Wire (Bezier)",
-				() => EdgeSettings.Instance.RendererType == EdgeRendererType.Wire,
-				() => SetEdgeRendererType(EdgeRendererType.Wire));
-			AppendToggleAction(_viewOptionsMenu.menu, "Connecting Line Style/Default (Unity)",
-				() => EdgeSettings.Instance.RendererType == EdgeRendererType.Default,
-				() => SetEdgeRendererType(EdgeRendererType.Default));
-
-			// Port settings submenu
-			_viewOptionsMenu.menu.AppendSeparator();
-			AppendToggleAction(_viewOptionsMenu.menu, "Port Colors/Type Colors",
-				() => PortSettings.Instance.ColorMode == PortColorMode.TypeBased,
-				() => SetPortColorMode(PortColorMode.TypeBased));
-			AppendToggleAction(_viewOptionsMenu.menu, "Port Colors/State Colors",
-				() => PortSettings.Instance.ColorMode == PortColorMode.StateBased,
-				() => SetPortColorMode(PortColorMode.StateBased));
-			_viewOptionsMenu.menu.AppendSeparator();
-			AppendToggleAction(_viewOptionsMenu.menu, "Show Type Icons",
-				() => PortSettings.Instance.ShowTypeIcons,
-				() => ToggleTypeIcons());
-
-			Add(_viewOptionsMenu);
+			Add(_settingsMenu);
 
 			// Bookmark menu (dynamically populated on click)
 			_bookmarkMenu = new ToolbarMenu { text = "", name = "vsm-toolbar__bookmark-menu" };
@@ -205,86 +205,18 @@ namespace Nonatomic.VSM.Editor.Graph
 			RebuildBookmarkMenu();
 			Add(_bookmarkMenu);
 
-			// Layout menu
-			_layoutMenu = new ToolbarMenu { text = "", name = "vsm-toolbar__layout-menu" };
-			_layoutMenu.tooltip = "Layout options";
-			_layoutMenu.Insert(0, CreateToolbarIcon("view-structure-up"));
-			_layoutMenu.menu.AppendAction("Auto Layout (Hierarchical)", action => ApplyLayout(true));
-			_layoutMenu.menu.AppendAction("Grid Layout", action => ApplyLayout(false));
-			Add(_layoutMenu);
-
-			// Separator
+			// Separator before the panels menu
 			Add(new ToolbarSpacer());
 
-			// Blackboard toggle
-			_blackboardToggle = new ToolbarToggle { text = "", name = "vsm-toolbar__blackboard-toggle" };
-			_blackboardToggle.tooltip = "Toggle Blackboard panel visibility";
-			_blackboardToggle.Add(CreateToolbarIcon("clipboard-check"));
-			_blackboardToggle.value = true;
-			_blackboardToggle.RegisterValueChangedCallback(evt =>
-			{
-				_window.BlackboardView?.SetVisible(evt.newValue);
-			});
-			Add(_blackboardToggle);
-
-			// Inspector toggle
-			_inspectorToggle = new ToolbarToggle { text = "", name = "vsm-toolbar__inspector-toggle" };
-			_inspectorToggle.tooltip = "Toggle Inspector panel visibility";
-			_inspectorToggle.Add(CreateToolbarIcon("info-circle"));
-			_inspectorToggle.value = true;
-			_inspectorToggle.RegisterValueChangedCallback(evt =>
-			{
-				_window.InspectorView?.SetVisible(evt.newValue);
-			});
-			Add(_inspectorToggle);
-
-			// Mini-Map toggle
-			_miniMapToggle = new ToolbarToggle { text = "", name = "vsm-toolbar__minimap-toggle" };
-			_miniMapToggle.tooltip = "Toggle Mini-Map visibility";
-			_miniMapToggle.Add(CreateToolbarIcon("map"));
-			_miniMapToggle.value = EditorPrefs.GetBool("VSM.MiniMap.Visible", true);
-			_miniMapToggle.RegisterValueChangedCallback(evt =>
-			{
-				if (_window.MiniMapView != null)
-				{
-					_window.MiniMapView.IsVisible = evt.newValue;
-				}
-			});
-			Add(_miniMapToggle);
-
-			// State List toggle
-			_stateListToggle = new ToolbarToggle { text = "", name = "vsm-toolbar__statelist-toggle" };
-			_stateListToggle.tooltip = "Toggle State List panel visibility";
-			_stateListToggle.Add(CreateToolbarIcon("list"));
-			_stateListToggle.value = EditorPrefs.GetBool("VSM.FloatingPanel.StateList.Visible", true);
-			_stateListToggle.RegisterValueChangedCallback(evt =>
-			{
-				_window.StateListPanel?.SetVisible(evt.newValue);
-			});
-			Add(_stateListToggle);
-
-			// Debug Timeline toggle (hidden outside Play mode)
-			_timelineToggle = new ToolbarToggle { text = "TL", name = "vsm-toolbar__timeline-toggle" };
-			_timelineToggle.tooltip = "Toggle Debug Timeline panel visibility";
-			_timelineToggle.style.unityTextAlign = TextAnchor.MiddleCenter;
-			_timelineToggle.value = EditorPrefs.GetBool("VSM.FloatingPanel.DebugTimeline.Visible", false);
-			_timelineToggle.RegisterValueChangedCallback(evt =>
-			{
-				_window.DebugTimelinePanel?.SetVisible(evt.newValue);
-			});
-			_timelineToggle.style.display = EditorApplication.isPlaying ? DisplayStyle.Flex : DisplayStyle.None;
-			Add(_timelineToggle);
-
-			// Breakpoints toggle
-			_breakpointsToggle = new ToolbarToggle { text = "BP", name = "vsm-toolbar__breakpoints-toggle" };
-			_breakpointsToggle.tooltip = "Toggle Breakpoints panel visibility";
-			_breakpointsToggle.style.unityTextAlign = TextAnchor.MiddleCenter;
-			_breakpointsToggle.value = EditorPrefs.GetBool("VSM.FloatingPanel.Breakpoints.Visible", false);
-			_breakpointsToggle.RegisterValueChangedCallback(evt =>
-			{
-				_window.BreakpointListPanel?.SetVisible(evt.newValue);
-			});
-			Add(_breakpointsToggle);
+			// ---- Windows menu: show/hide editor panels ----
+			// Replaces six look-alike monochrome toggles (and the cryptic "TL"/"BP" text buttons)
+			// with one labelled, self-documenting dropdown; rebuilt on open so it reflects live
+			// visibility and only offers the Debug Timeline during play mode.
+			_windowsMenu = new ToolbarMenu { text = "Windows", name = "vsm-toolbar__windows-menu" };
+			_windowsMenu.tooltip = "Show or hide editor panels";
+			_windowsMenu.RegisterCallback<MouseDownEvent>(evt => RebuildWindowsMenu(), TrickleDown.TrickleDown);
+			RebuildWindowsMenu();
+			Add(_windowsMenu);
 
 			// Separator before split view controls
 			Add(new ToolbarSpacer());
@@ -438,6 +370,42 @@ namespace Nonatomic.VSM.Editor.Graph
 				action => getter()
 					? DropdownMenuAction.Status.Checked
 					: DropdownMenuAction.Status.Normal);
+		}
+
+		/// <summary>
+		/// Rebuilds the Windows panel menu. Called on open so each item's checkmark reflects the
+		/// panel's live visibility, and the Debug Timeline is only listed during play mode.
+		/// </summary>
+		private void RebuildWindowsMenu()
+		{
+			_windowsMenu.menu.ClearItems();
+
+			AppendToggleAction(_windowsMenu.menu, "Blackboard",
+				() => _window.BlackboardView?.IsVisible == true,
+				() => { if (_window.BlackboardView != null) _window.BlackboardView.SetVisible(!_window.BlackboardView.IsVisible); });
+
+			AppendToggleAction(_windowsMenu.menu, "Inspector",
+				() => _window.InspectorView?.IsVisible == true,
+				() => { if (_window.InspectorView != null) _window.InspectorView.SetVisible(!_window.InspectorView.IsVisible); });
+
+			AppendToggleAction(_windowsMenu.menu, "Mini-Map",
+				() => _window.MiniMapView?.IsVisible == true,
+				() => { if (_window.MiniMapView != null) _window.MiniMapView.IsVisible = !_window.MiniMapView.IsVisible; });
+
+			AppendToggleAction(_windowsMenu.menu, "State List",
+				() => _window.StateListPanel?.IsVisible == true,
+				() => { if (_window.StateListPanel != null) _window.StateListPanel.SetVisible(!_window.StateListPanel.IsVisible); });
+
+			AppendToggleAction(_windowsMenu.menu, "Breakpoints",
+				() => _window.BreakpointListPanel?.IsVisible == true,
+				() => { if (_window.BreakpointListPanel != null) _window.BreakpointListPanel.SetVisible(!_window.BreakpointListPanel.IsVisible); });
+
+			if (EditorApplication.isPlaying)
+			{
+				AppendToggleAction(_windowsMenu.menu, "Debug Timeline",
+					() => _window.DebugTimelinePanel?.IsVisible == true,
+					() => { if (_window.DebugTimelinePanel != null) _window.DebugTimelinePanel.SetVisible(!_window.DebugTimelinePanel.IsVisible); });
+			}
 		}
 
 		private void RebuildBookmarkMenu()
@@ -626,50 +594,19 @@ namespace Nonatomic.VSM.Editor.Graph
 
 		public void SetTimelineToggleValue(bool value)
 		{
-			_timelineToggle?.SetValueWithoutNotify(value);
+			// Retained for API compatibility — the Debug Timeline is toggled from the Windows menu.
 		}
 
 		/// <summary>
-		/// Updates the toggle states based on panel visibility.
-		/// Call this when panels are closed via their close buttons.
+		/// Re-syncs the split-view toggles when their state changes outside the toolbar. Panel
+		/// visibility is now surfaced by the Windows menu (which re-reads live state when opened),
+		/// so the individual panels no longer need toggle syncing here.
 		/// </summary>
 		public void SyncPanelToggles()
 		{
-			if (_blackboardToggle != null && _window.BlackboardView != null)
-			{
-				_blackboardToggle.SetValueWithoutNotify(_window.BlackboardView.IsVisible);
-			}
-
-			if (_inspectorToggle != null && _window.InspectorView != null)
-			{
-				_inspectorToggle.SetValueWithoutNotify(_window.InspectorView.IsVisible);
-			}
-
-			if (_miniMapToggle != null && _window.MiniMapView != null)
-			{
-				_miniMapToggle.SetValueWithoutNotify(_window.MiniMapView.IsVisible);
-			}
-
-			if (_stateListToggle != null && _window.StateListPanel != null)
-			{
-				_stateListToggle.SetValueWithoutNotify(_window.StateListPanel.IsVisible);
-			}
-
-			if (_timelineToggle != null && _window.DebugTimelinePanel != null)
-			{
-				_timelineToggle.SetValueWithoutNotify(_window.DebugTimelinePanel.IsVisible);
-			}
-
-			if (_breakpointsToggle != null && _window.BreakpointListPanel != null)
-			{
-				_breakpointsToggle.SetValueWithoutNotify(_window.BreakpointListPanel.IsVisible);
-			}
-
-			// Sync split view toggles
 			if (_splitViewToggle != null && _window.SplitViewContainer != null)
 			{
 				_splitViewToggle.SetValueWithoutNotify(_window.SplitViewContainer.IsSplitEnabled);
-				// Show/hide link scroll toggle based on split view state
 				_linkScrollToggle.style.display = _window.SplitViewContainer.IsSplitEnabled
 					? DisplayStyle.Flex
 					: DisplayStyle.None;
@@ -682,18 +619,11 @@ namespace Nonatomic.VSM.Editor.Graph
 		}
 
 		/// <summary>
-		/// Shows or hides the debug timeline toggle based on Play mode state.
+		/// Retained for API compatibility — the Debug Timeline now lives in the Windows menu
+		/// (shown only during play mode), so there is no separate toggle to show or hide.
 		/// </summary>
 		public void SetTimelineToggleVisible(bool visible)
 		{
-			if (_timelineToggle == null) return;
-
-			_timelineToggle.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
-
-			if (!visible)
-			{
-				_timelineToggle.SetValueWithoutNotify(false);
-			}
 		}
 	}
 }
