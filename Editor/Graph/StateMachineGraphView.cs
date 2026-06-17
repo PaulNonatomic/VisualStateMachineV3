@@ -2596,9 +2596,21 @@ namespace Nonatomic.VSM.Editor.Graph
 		public void FlashBreakpointHit(string nodeId)
 		{
 			if (string.IsNullOrEmpty(nodeId)) return;
-			if (!_nodeViews.TryGetValue(nodeId, out var nodeView)) return;
 
-			if (nodeView is StateNodeView stateNodeView)
+			// A transition breakpoint is drawn on its edge, so flash the edge rather than the node.
+			var breakpoint = CurrentAsset?.GraphViewData?.GetBreakpointForNode(nodeId);
+			if (breakpoint != null && breakpoint.Type == BreakpointType.OnTransition)
+			{
+				var edge = edges.ToList()
+					.OfType<TransitionEdgeView>()
+					.FirstOrDefault(e => e.ConnectionData != null
+						&& e.ConnectionData.TargetNodeId == nodeId
+						&& e.ConnectionData.SourcePortName == breakpoint.TransitionPortName);
+				edge?.FlashBreakpointHit();
+				return;
+			}
+
+			if (_nodeViews.TryGetValue(nodeId, out var nodeView) && nodeView is StateNodeView stateNodeView)
 			{
 				stateNodeView.FlashBreakpointHit();
 			}
