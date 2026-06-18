@@ -1,0 +1,62 @@
+name: Bug report
+description: Report a problem with Visual State Machine V3
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for filing a report. Please fill in as much as you can — it makes bugs far easier to reproduce.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect to happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: vsm-version
+    attributes:
+      label: VSM3 version
+      placeholder: "0.4.0"
+    validations:
+      required: true
+  - type: input
+    id: unity-version
+    attributes:
+      label: Unity version
+      placeholder: "6000.0.x or 2022.3.x"
+    validations:
+      required: true
+  - type: dropdown
+    id: backend
+    attributes:
+      label: Scripting backend
+      options:
+        - Mono
+        - IL2CPP
+        - Not sure
+    validations:
+      required: false
+  - type: input
+    id: platform
+    attributes:
+      label: Target platform
+      placeholder: "Editor / Windows / macOS / WebGL / Android / iOS / ..."
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console output / stack trace
+      render: shell
+    validations:
+      required: false
