@@ -1010,6 +1010,16 @@ Open via **Window > Visual State Machine > Graph Editor**
 - **Zoom/Pan**: Scroll to zoom, middle-click to pan
 - **Search**: Ctrl+F to search for nodes and regions
 
+#### Toolbar
+
+The toolbar splits into a left group (navigation + frequent view actions) and a right group (menus, panels, and save):
+
+- **Frame All / Search / Layout** (left, next to the breadcrumb): frame all nodes, search nodes and regions (Ctrl+F), and the hierarchical/grid auto-layout menu.
+- **View** menu: framing actions (Frame Selection, Frame Entry Node) and view behaviour (auto-center on the active state, smooth centering, follow sub-state machines).
+- **Settings** menu: persistent display preferences — connecting-line style (Wire/Default), port colours, type icons, and Debug Mode.
+- **Windows** menu: show or hide the editor panels — Blackboard, Inspector, Mini-Map, State List, Breakpoints, and (in play mode) the Debug Timeline.
+- **Bookmarks**, **Split View**, and **Save** sit on the right; a link-scroll toggle appears next to Split View when it is enabled.
+
 ### Regions
 
 Regions are visual containers for organizing nodes into logical groups. They are purely organizational and do not affect state machine execution.
@@ -1058,7 +1068,7 @@ owner node when repositioned.
 
 - **Auto Layout**: Automatically arranges nodes hierarchically from left to right based on connections
 - **Grid Layout**: Arranges nodes in a simple grid pattern
-- Use the toolbar **Layout** menu or **Auto Layout** button to organize messy graphs
+- Use the toolbar **Layout** menu to organize messy graphs
 
 ## Debugging Tools
 
@@ -1107,7 +1117,7 @@ GameOver             // Simple truthy check
 
 #### Breakpoint List Panel
 
-A sidebar panel in the graph editor shows all breakpoints for the current graph:
+A sidebar panel in the graph editor (open it from the toolbar's **Windows** menu) shows all breakpoints for the current graph:
 
 - Toggle individual breakpoints on/off
 - Toggle all breakpoints globally
