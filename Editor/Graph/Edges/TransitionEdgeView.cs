@@ -37,6 +37,8 @@ namespace Nonatomic.VSM.Editor.Graph
 		private WireEdgeControl _wireEdgeControl;
 		private VisualElement _handleContainer;
 		private VisualElement _hitOverlay;
+		private VisualElement _breakpointContainer;
+		private BreakpointIndicator _breakpointIndicator;
 
 		private SplinePointHandle _quarterPointHandle;
 		private SplinePointHandle _midpointHandle;
@@ -324,6 +326,23 @@ namespace Nonatomic.VSM.Editor.Graph
 			_warningIcon.style.display = DisplayStyle.None;
 			Add(_warningIcon);
 
+			// Breakpoint indicator: an always-visible dot drawn on the edge at its midpoint when this
+			// transition carries an OnTransition breakpoint. It uses its own container rather than the
+			// handle container, which is hidden unless the edge is selected for curve editing.
+			_breakpointContainer = new VisualElement();
+			_breakpointContainer.name = "breakpoint-container";
+			_breakpointContainer.style.position = Position.Absolute;
+			_breakpointContainer.style.left = 0;
+			_breakpointContainer.style.top = 0;
+			_breakpointContainer.style.right = 0;
+			_breakpointContainer.style.bottom = 0;
+			_breakpointContainer.pickingMode = PickingMode.Ignore;
+			Add(_breakpointContainer);
+			_breakpointIndicator = new BreakpointIndicator(_breakpointContainer);
+
+			BreakpointManager.OnBreakpointToggled += HandleBreakpointToggled;
+			RegisterCallback<DetachFromPanelEvent>(_ => BreakpointManager.OnBreakpointToggled -= HandleBreakpointToggled);
+
 			RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 			RegisterCallback<MouseDownEvent>(OnEdgeMouseDown);
 			RegisterCallback<ContextualMenuPopulateEvent>(OnContextMenuPopulate);
@@ -460,6 +479,78 @@ namespace Nonatomic.VSM.Editor.Graph
 				label,
 				_ => BreakpointManager.ToggleTransitionBreakpoint(graph, targetNodeId, portName),
 				DropdownMenuAction.AlwaysEnabled);
+		}
+
+		private void HandleBreakpointToggled(StateMachineGraph graph, string nodeId)
+		{
+			if (ConnectionData == null) return;
+			if (graph != GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset) return;
+			if (nodeId != null && nodeId != ConnectionData.TargetNodeId) return;
+			UpdateBreakpointIndicator();
+		}
+
+		/// <summary>
+		/// Shows or hides the edge's breakpoint dot depending on whether this transition
+		/// (target node + source port) currently carries an OnTransition breakpoint.
+		/// </summary>
+		private void UpdateBreakpointIndicator()
+		{
+			if (_breakpointIndicator == null || ConnectionData == null) return;
+
+			if (ConnectionData.ConnectionType != ConnectionType.Transition)
+			{
+				_breakpointIndicator.Hide();
+				return;
+			}
+
+			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
+			var breakpoint = graph?.GraphViewData.GetBreakpointForNode(ConnectionData.TargetNodeId);
+			var isThisTransition = breakpoint != null
+				&& breakpoint.Type == BreakpointType.OnTransition
+				&& breakpoint.TransitionPortName == ConnectionData.SourcePortName;
+
+			if (isThisTransition)
+			{
+				_breakpointIndicator.Show(breakpoint.Enabled, !string.IsNullOrEmpty(breakpoint.Condition));
+				UpdateBreakpointIndicatorPosition();
+			}
+			else
+			{
+				_breakpointIndicator.Hide();
+			}
+		}
+
+		/// <summary>
+		/// Places the breakpoint dot on the edge: at the curve midpoint for the wire renderer,
+		/// or the edge's centre as a fallback for the default renderer.
+		/// </summary>
+		private void UpdateBreakpointIndicatorPosition()
+		{
+			if (_breakpointIndicator == null || !_breakpointIndicator.IsVisible) return;
+
+			if (_wireEdgeControl != null)
+			{
+				var graphView = GetFirstAncestorOfType<UnityEditor.Experimental.GraphView.GraphView>();
+				if (graphView == null) return;
+
+				var world = graphView.contentViewContainer.LocalToWorld(_wireEdgeControl.GetMidpoint());
+				var local = _breakpointContainer.WorldToLocal(world);
+				_breakpointIndicator.SetCenter(local.x, local.y);
+			}
+			else
+			{
+				var rect = _breakpointContainer.contentRect;
+				if (float.IsNaN(rect.width)) return;
+				_breakpointIndicator.SetCenter(rect.center.x, rect.center.y);
+			}
+		}
+
+		/// <summary>
+		/// Pulses the edge's breakpoint dot when this transition's breakpoint is hit at runtime.
+		/// </summary>
+		public void FlashBreakpointHit()
+		{
+			_breakpointIndicator?.Flash();
 		}
 
 		private void Subdivide()
@@ -818,12 +909,14 @@ namespace Nonatomic.VSM.Editor.Graph
 			UpdateVisuals();
 			_wireEdgeControl?.MarkDirty();
 			MarkDirtyRepaint();
+			UpdateBreakpointIndicator();
 		}
 
 		private void OnGeometryChanged(GeometryChangedEvent evt)
 		{
 			_wireEdgeControl?.MarkDirty();
 			UpdateHandlePositions();
+			UpdateBreakpointIndicatorPosition();
 		}
 
 		/// <summary>
@@ -834,6 +927,7 @@ namespace Nonatomic.VSM.Editor.Graph
 		{
 			_wireEdgeControl?.MarkDirty();
 			UpdateHandlePositions();
+			UpdateBreakpointIndicatorPosition();
 			MarkDirtyRepaint();
 		}
 
