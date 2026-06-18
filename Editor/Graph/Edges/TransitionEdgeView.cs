@@ -470,12 +470,8 @@ namespace Nonatomic.VSM.Editor.Graph
 			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
 			if (graph == null) return;
 
-			var existing = graph.GraphViewData.GetBreakpointForNode(targetNodeId);
-			var isThisTransitionBreakpoint = existing != null
-				&& existing.Type == BreakpointType.OnTransition
-				&& existing.TransitionPortName == portName
-				&& (string.IsNullOrEmpty(existing.SourceNodeId) || existing.SourceNodeId == sourceNodeId);
-			var label = isThisTransitionBreakpoint ? "Remove Transition Breakpoint" : "Add Transition Breakpoint";
+			var existing = graph.GraphViewData.GetTransitionBreakpoint(targetNodeId, sourceNodeId, portName);
+			var label = existing != null ? "Remove Transition Breakpoint" : "Add Transition Breakpoint";
 
 			evt.menu.AppendSeparator();
 			evt.menu.AppendAction(
@@ -507,15 +503,10 @@ namespace Nonatomic.VSM.Editor.Graph
 			}
 
 			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
-			var breakpoint = graph?.GraphViewData.GetBreakpointForNode(ConnectionData.TargetNodeId);
-			var isThisTransition = breakpoint != null
-				&& breakpoint.Type == BreakpointType.OnTransition
-				&& breakpoint.TransitionPortName == ConnectionData.SourcePortName
-				// Edge-specific: a breakpoint that remembers its source node draws only on that edge;
-				// legacy breakpoints (no source) fall back to any same-named transition into the node.
-				&& (string.IsNullOrEmpty(breakpoint.SourceNodeId) || breakpoint.SourceNodeId == ConnectionData.SourceNodeId);
+			var breakpoint = graph?.GraphViewData.GetTransitionBreakpoint(
+				ConnectionData.TargetNodeId, ConnectionData.SourceNodeId, ConnectionData.SourcePortName);
 
-			if (isThisTransition)
+			if (breakpoint != null)
 			{
 				_breakpointIndicator.Show(breakpoint.Enabled, !string.IsNullOrEmpty(breakpoint.Condition));
 				UpdateBreakpointIndicatorPosition();

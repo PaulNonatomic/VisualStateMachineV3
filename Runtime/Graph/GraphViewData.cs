@@ -185,6 +185,34 @@ namespace Nonatomic.VSM.Graph
 		}
 
 		/// <summary>
+		/// Gets the breakpoint for one specific transition (edge), identified by its target node,
+		/// source node, and source port. Multiple transitions into the same node each get their own.
+		/// </summary>
+		public Breakpoint GetTransitionBreakpoint(string targetNodeId, string sourceNodeId, string transitionPortName)
+		{
+			return _breakpoints.Find(b => b.Type == BreakpointType.OnTransition
+				&& b.NodeId == targetNodeId
+				&& b.SourceNodeId == sourceNodeId
+				&& b.TransitionPortName == transitionPortName);
+		}
+
+		/// <summary>
+		/// Gets the node-entry breakpoint (OnEntry or Conditional) for a node, if one exists.
+		/// </summary>
+		public Breakpoint GetNodeEntryBreakpoint(string nodeId)
+		{
+			return _breakpoints.Find(b => b.NodeId == nodeId && b.Type != BreakpointType.OnTransition);
+		}
+
+		/// <summary>
+		/// Gets a breakpoint by its unique id.
+		/// </summary>
+		public Breakpoint GetBreakpointById(string breakpointId)
+		{
+			return _breakpoints.Find(b => b.Id == breakpointId);
+		}
+
+		/// <summary>
 		/// Checks if a node has an enabled breakpoint.
 		/// </summary>
 		public bool HasEnabledBreakpoint(string nodeId)
@@ -198,7 +226,7 @@ namespace Nonatomic.VSM.Graph
 		/// </summary>
 		public Breakpoint ToggleBreakpoint(string nodeId)
 		{
-			var existing = GetBreakpointForNode(nodeId);
+			var existing = GetNodeEntryBreakpoint(nodeId);
 			if (existing != null)
 			{
 				_breakpoints.Remove(existing);

@@ -50,10 +50,15 @@ namespace Nonatomic.VSM.Editor.Debugging
 			if (!_globalEnabled || isTransient) return;
 			if (info?.Graph == null) return;
 
-			var breakpoint = info.Graph.GraphViewData.GetBreakpointForNode(nodeId);
+			var data = info.Graph.GraphViewData;
+
+			// Prefer the breakpoint on the specific transition this node was entered through;
+			// otherwise fall back to the node's own entry breakpoint.
+			var breakpoint = data.GetTransitionBreakpoint(nodeId, info.PendingTriggerFromNodeId, info.PendingTriggerPortName)
+				?? data.GetNodeEntryBreakpoint(nodeId);
 			if (breakpoint == null || !breakpoint.Enabled) return;
 
-			// Conditional breakpoints are evaluated by HandleInstanceStateChanged
+			// Conditional breakpoints are evaluated by HandleInstanceStateChanged.
 			if (breakpoint.Type == BreakpointType.Conditional) return;
 
 			if (ShouldBreak(breakpoint, info))
@@ -74,7 +79,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 			var nodeId = info.CurrentStateNodeId;
 			if (string.IsNullOrEmpty(nodeId)) return;
 
-			var breakpoint = info.Graph.GraphViewData.GetBreakpointForNode(nodeId);
+			var breakpoint = info.Graph.GraphViewData.GetNodeEntryBreakpoint(nodeId);
 			if (breakpoint == null || !breakpoint.Enabled) return;
 			if (breakpoint.Type != BreakpointType.Conditional) return;
 
@@ -242,21 +247,18 @@ namespace Nonatomic.VSM.Editor.Debugging
 
 			Undo.RecordObject(graph, "Toggle Transition Breakpoint");
 			var data = graph.GraphViewData;
-			var existing = data.GetBreakpointForNode(targetNodeId);
+			var existing = data.GetTransitionBreakpoint(targetNodeId, sourceNodeId, transitionPortName);
 
 			Breakpoint result = null;
-			if (existing != null
-				&& existing.Type == BreakpointType.OnTransition
-				&& existing.TransitionPortName == transitionPortName
-				&& (string.IsNullOrEmpty(existing.SourceNodeId) || existing.SourceNodeId == sourceNodeId))
+			if (existing != null)
 			{
-				// Same transition breakpoint already present -> toggle it off.
+				// This transition already has a breakpoint -> toggle it off.
 				data.RemoveBreakpoint(existing.Id);
 			}
 			else
 			{
-				// Replace any existing breakpoint on this node with an OnTransition one.
-				if (existing != null) data.RemoveBreakpoint(existing.Id);
+				// Add a breakpoint for this specific transition. Other breakpoints on the same target
+				// node (its node-entry breakpoint or other incoming transitions) are left intact.
 				result = new Breakpoint(targetNodeId, BreakpointType.OnTransition)
 				{
 					TransitionPortName = transitionPortName,
@@ -294,7 +296,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 		{
 			if (graph == null || string.IsNullOrEmpty(nodeId)) return;
 
-			var breakpoint = graph.GraphViewData.GetBreakpointForNode(nodeId);
+			var breakpoint = graph.GraphViewData.GetNodeEntryBreakpoint(nodeId);
 			if (breakpoint == null) return;
 
 			Undo.RecordObject(graph, "Set Breakpoint Condition");
@@ -306,17 +308,17 @@ namespace Nonatomic.VSM.Editor.Debugging
 			OnBreakpointToggled?.Invoke(graph, nodeId);
 		}
 
-		public static void SetBreakpointEnabled(StateMachineGraph graph, string nodeId, bool enabled)
+		public static void SetBreakpointEnabled(StateMachineGraph graph, string breakpointId, bool enabled)
 		{
-			if (graph == null || string.IsNullOrEmpty(nodeId)) return;
+			if (graph == null || string.IsNullOrEmpty(breakpointId)) return;
 
-			var breakpoint = graph.GraphViewData.GetBreakpointForNode(nodeId);
+			var breakpoint = graph.GraphViewData.GetBreakpointById(breakpointId);
 			if (breakpoint == null) return;
 
 			Undo.RecordObject(graph, "Toggle Breakpoint Enabled");
 			breakpoint.Enabled = enabled;
 			EditorUtility.SetDirty(graph);
-			OnBreakpointToggled?.Invoke(graph, nodeId);
+			OnBreakpointToggled?.Invoke(graph, breakpoint.NodeId);
 		}
 
 		private static void ResetAllHitCounts()
