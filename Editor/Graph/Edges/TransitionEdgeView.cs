@@ -39,6 +39,7 @@ namespace Nonatomic.VSM.Editor.Graph
 		private VisualElement _hitOverlay;
 		private VisualElement _breakpointContainer;
 		private BreakpointIndicator _breakpointIndicator;
+		private IVisualElementScheduledItem _bpReposition;
 
 		private SplinePointHandle _quarterPointHandle;
 		private SplinePointHandle _midpointHandle;
@@ -513,10 +514,22 @@ namespace Nonatomic.VSM.Editor.Graph
 			{
 				_breakpointIndicator.Show(breakpoint.Enabled, !string.IsNullOrEmpty(breakpoint.Condition));
 				UpdateBreakpointIndicatorPosition();
+
+				// The edge's own geometry events don't fire reliably while connected nodes are
+				// dragged, so re-anchor to the midpoint on a light schedule while the dot is shown.
+				if (_bpReposition == null)
+				{
+					_bpReposition = schedule.Execute(UpdateBreakpointIndicatorPosition).Every(50);
+				}
+				else
+				{
+					_bpReposition.Resume();
+				}
 			}
 			else
 			{
 				_breakpointIndicator.Hide();
+				_bpReposition?.Pause();
 			}
 		}
 
