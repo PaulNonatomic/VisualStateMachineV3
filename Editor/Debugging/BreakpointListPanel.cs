@@ -132,7 +132,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 			toggle.value = breakpoint.Enabled;
 			toggle.RegisterValueChangedCallback(evt =>
 			{
-				BreakpointManager.SetBreakpointEnabled(_graph, breakpoint.NodeId, evt.newValue);
+				BreakpointManager.SetBreakpointEnabled(_graph, breakpoint.Id, evt.newValue);
 			});
 			row.Add(toggle);
 
@@ -170,7 +170,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 			var typeText = breakpoint.Type switch
 			{
 				BreakpointType.OnEntry => "",
-				BreakpointType.OnTransition => breakpoint.TransitionPortName ?? "",
+				BreakpointType.OnTransition => $"{GetNodeDisplayName(breakpoint.SourceNodeId)} ({breakpoint.TransitionPortName})",
 				BreakpointType.Conditional => breakpoint.Condition ?? "",
 				_ => ""
 			};
@@ -180,7 +180,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 				typeLabel.style.fontSize = 9;
 				typeLabel.style.color = new StyleColor(new Color(0.55f, 0.55f, 0.55f));
 				typeLabel.style.marginRight = 4;
-				typeLabel.style.maxWidth = 80;
+				typeLabel.style.maxWidth = 120;
 				typeLabel.style.overflow = Overflow.Hidden;
 				row.Add(typeLabel);
 			}

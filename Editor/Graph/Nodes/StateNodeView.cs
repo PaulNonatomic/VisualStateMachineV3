@@ -744,11 +744,10 @@ namespace Nonatomic.VSM.Editor.Graph
 			var graph = _graphView?.CurrentAsset;
 			if (graph == null || _breakpointIndicator == null) return;
 
-			var breakpoint = graph.GraphViewData.GetBreakpointForNode(NodeData.Id);
-
-			// Transition breakpoints are drawn on the edge itself (see TransitionEdgeView), so the
-			// node only shows an indicator for node-entry breakpoints (OnEntry / Conditional).
-			if (breakpoint != null && breakpoint.Type != BreakpointType.OnTransition)
+			// Transition breakpoints are drawn on the edge itself (see TransitionEdgeView); the node
+			// shows an indicator only for its node-entry breakpoint (OnEntry / Conditional).
+			var breakpoint = graph.GraphViewData.GetNodeEntryBreakpoint(NodeData.Id);
+			if (breakpoint != null)
 			{
 				var isConditional = breakpoint.Type == BreakpointType.Conditional;
 				_breakpointIndicator.Show(breakpoint.Enabled, isConditional);
