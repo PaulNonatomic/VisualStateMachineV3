@@ -102,7 +102,11 @@ namespace Nonatomic.VSM.Editor.Debugging
 					// TransitionHistory record for the current transition isn't committed until
 					// the later OnStateChanged, so reading history here would lag by one and the
 					// breakpoint would never match the transition that just occurred.
-					return info.PendingTriggerPortName == breakpoint.TransitionPortName;
+					if (info.PendingTriggerPortName != breakpoint.TransitionPortName) return false;
+					// Edge-specific breakpoints also match the source node so they fire only on the
+					// exact transition they were set on; legacy breakpoints (no source) match any.
+					return string.IsNullOrEmpty(breakpoint.SourceNodeId)
+						|| info.PendingTriggerFromNodeId == breakpoint.SourceNodeId;
 
 				case BreakpointType.Conditional:
 					return EvaluateCondition(breakpoint.Condition, info);
@@ -232,7 +236,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 		/// OnTransition breakpoint for the same port it is removed; otherwise any existing
 		/// breakpoint on the node is replaced with this one (a node holds a single breakpoint).
 		/// </summary>
-		public static Breakpoint ToggleTransitionBreakpoint(StateMachineGraph graph, string targetNodeId, string transitionPortName)
+		public static Breakpoint ToggleTransitionBreakpoint(StateMachineGraph graph, string targetNodeId, string transitionPortName, string sourceNodeId = null)
 		{
 			if (graph == null || string.IsNullOrEmpty(targetNodeId)) return null;
 
@@ -243,7 +247,8 @@ namespace Nonatomic.VSM.Editor.Debugging
 			Breakpoint result = null;
 			if (existing != null
 				&& existing.Type == BreakpointType.OnTransition
-				&& existing.TransitionPortName == transitionPortName)
+				&& existing.TransitionPortName == transitionPortName
+				&& (string.IsNullOrEmpty(existing.SourceNodeId) || existing.SourceNodeId == sourceNodeId))
 			{
 				// Same transition breakpoint already present -> toggle it off.
 				data.RemoveBreakpoint(existing.Id);
@@ -254,7 +259,8 @@ namespace Nonatomic.VSM.Editor.Debugging
 				if (existing != null) data.RemoveBreakpoint(existing.Id);
 				result = new Breakpoint(targetNodeId, BreakpointType.OnTransition)
 				{
-					TransitionPortName = transitionPortName
+					TransitionPortName = transitionPortName,
+					SourceNodeId = sourceNodeId
 				};
 				data.AddBreakpoint(result);
 			}

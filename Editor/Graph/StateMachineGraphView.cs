@@ -2605,7 +2605,9 @@ namespace Nonatomic.VSM.Editor.Graph
 					.OfType<TransitionEdgeView>()
 					.FirstOrDefault(e => e.ConnectionData != null
 						&& e.ConnectionData.TargetNodeId == nodeId
-						&& e.ConnectionData.SourcePortName == breakpoint.TransitionPortName);
+						&& e.ConnectionData.SourcePortName == breakpoint.TransitionPortName
+						&& (string.IsNullOrEmpty(breakpoint.SourceNodeId)
+							|| e.ConnectionData.SourceNodeId == breakpoint.SourceNodeId));
 				edge?.FlashBreakpointHit();
 				return;
 			}

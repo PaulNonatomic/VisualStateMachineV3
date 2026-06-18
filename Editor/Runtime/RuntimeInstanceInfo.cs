@@ -23,6 +23,7 @@ namespace Nonatomic.VSM.Editor.Runtime
 		private string _currentStateName;
 		private string _lastVisitedNodeId;
 		private string _pendingTriggerPortName;
+		private string _pendingTriggerFromNodeId;
 
 		/// <summary>
 		/// The current node ID - returns SubStateMachine node ID if running a child instance.
@@ -83,6 +84,13 @@ namespace Nonatomic.VSM.Editor.Runtime
 		/// is visited; the history record for the current transition is not added until later.
 		/// </summary>
 		public string PendingTriggerPortName => _pendingTriggerPortName;
+
+		/// <summary>
+		/// Source node of the in-flight transition (the node being exited), tracked alongside
+		/// <see cref="PendingTriggerPortName"/> so edge-specific transition breakpoints can match
+		/// the exact transition rather than any same-named port into the node.
+		/// </summary>
+		public string PendingTriggerFromNodeId => _pendingTriggerFromNodeId;
 
 		private const int MaxHistoryEntries = 100;
 
@@ -208,6 +216,7 @@ namespace Nonatomic.VSM.Editor.Runtime
 			};
 
 			_pendingTriggerPortName = null;
+			_pendingTriggerFromNodeId = null;
 			_transitionHistory.Add(record);
 
 			// Trim history if needed
@@ -224,6 +233,7 @@ namespace Nonatomic.VSM.Editor.Runtime
 			if (!string.IsNullOrEmpty(portName))
 			{
 				_pendingTriggerPortName = portName;
+				_pendingTriggerFromNodeId = fromNodeId;
 			}
 		}
 
@@ -244,6 +254,7 @@ namespace Nonatomic.VSM.Editor.Runtime
 				if (connection != null)
 				{
 					_pendingTriggerPortName = connection.SourcePortName;
+					_pendingTriggerFromNodeId = fromNodeId;
 				}
 			}
 
