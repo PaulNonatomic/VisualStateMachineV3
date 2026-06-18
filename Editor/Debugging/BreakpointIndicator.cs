@@ -59,6 +59,16 @@ namespace Nonatomic.VSM.Editor.Debugging
 		}
 
 		/// <summary>
+		/// Positions the dot centred on the given point, in its container's local space. Used by
+		/// edge indicators, which sit at the transition midpoint rather than a fixed node corner.
+		/// </summary>
+		public void SetCenter(float centerX, float centerY)
+		{
+			_dot.style.left = centerX - 6f;
+			_dot.style.top = centerY - 6f;
+		}
+
+		/// <summary>
 		/// Briefly pulses the indicator (brightening toward white) to draw attention when this
 		/// node's breakpoint is hit. No-op if the indicator is not currently shown.
 		/// </summary>
