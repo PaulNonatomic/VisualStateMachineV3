@@ -12,6 +12,7 @@ namespace Nonatomic.VSM.Graph
 		[SerializeField] private BreakpointType _type = BreakpointType.OnEntry;
 		[SerializeField] private string _condition;
 		[SerializeField] private string _transitionPortName;
+		[SerializeField] private string _sourceNodeId;
 		[SerializeField] private int _hitCount;
 
 		public Breakpoint()
@@ -59,6 +60,17 @@ namespace Nonatomic.VSM.Graph
 		{
 			get => _transitionPortName;
 			set => _transitionPortName = value;
+		}
+
+		/// <summary>
+		/// For OnTransition breakpoints, the source node of the specific transition this breakpoint
+		/// was set on. Empty for legacy breakpoints, which match any transition into the node via
+		/// <see cref="TransitionPortName"/>.
+		/// </summary>
+		public string SourceNodeId
+		{
+			get => _sourceNodeId;
+			set => _sourceNodeId = value;
 		}
 
 		public int HitCount
