@@ -64,6 +64,8 @@ namespace Nonatomic.VSM.Editor.Graph
 
 		// Hover state
 		private bool _isHovered;
+		// Emphasis: drawn thicker when this edge carries a breakpoint.
+		private bool _emphasized;
 		private static readonly Color HoverTint = new Color(0.3f, 0.3f, 0.3f, 0f);
 
 		// Higher value = smoother curves but more vertices
@@ -493,7 +495,8 @@ namespace Nonatomic.VSM.Editor.Graph
 			var offset = layout.position;
 			var painter = mgc.painter2D;
 
-			var lineWidth = _isHovered ? _settings.EdgeWidth + 1f : _settings.EdgeWidth;
+			var baseWidth = _emphasized ? _settings.EdgeWidth + 4f : _settings.EdgeWidth;
+			var lineWidth = _isHovered ? baseWidth + 1f : baseWidth;
 			painter.lineWidth = lineWidth;
 			painter.lineJoin = LineJoin.Round;
 
@@ -541,6 +544,16 @@ namespace Nonatomic.VSM.Editor.Graph
 		{
 			_wireInputColor = input;
 			_wireOutputColor = output;
+			MarkDirtyRepaint();
+		}
+
+		/// <summary>
+		/// When true, the wire is rendered thicker (used to highlight a breakpoint'd transition).
+		/// </summary>
+		public void SetEmphasized(bool emphasized)
+		{
+			if (_emphasized == emphasized) return;
+			_emphasized = emphasized;
 			MarkDirtyRepaint();
 		}
 
