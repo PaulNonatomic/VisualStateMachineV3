@@ -34,6 +34,14 @@ namespace Nonatomic.VSM.Editor.Debugging
 			_dot.style.borderBottomLeftRadius = 6;
 			_dot.style.borderBottomRightRadius = 6;
 			_dot.style.backgroundColor = BreakpointColor;
+			_dot.style.borderTopWidth = 2;
+			_dot.style.borderBottomWidth = 2;
+			_dot.style.borderLeftWidth = 2;
+			_dot.style.borderRightWidth = 2;
+			_dot.style.borderTopColor = Color.black;
+			_dot.style.borderBottomColor = Color.black;
+			_dot.style.borderLeftColor = Color.black;
+			_dot.style.borderRightColor = Color.black;
 			_dot.style.display = DisplayStyle.None;
 			_dot.pickingMode = PickingMode.Ignore;
 

@@ -40,6 +40,7 @@ namespace Nonatomic.VSM.Editor.Graph
 		private VisualElement _breakpointContainer;
 		private BreakpointIndicator _breakpointIndicator;
 		private IVisualElementScheduledItem _bpReposition;
+		private bool _hasBreakpoint;
 
 		private SplinePointHandle _quarterPointHandle;
 		private SplinePointHandle _midpointHandle;
@@ -269,10 +270,11 @@ namespace Nonatomic.VSM.Editor.Graph
 			_handleContainer.style.display = DisplayStyle.None;
 			Add(_handleContainer);
 
-			// Level 1 handles
-			var level1Color = new Color(0.4f, 0.7f, 1f);
-			var midpointColor = new Color(1f, 0.5f, 0f);
-			var level2Color = new Color(0.5f, 0.9f, 0.5f);
+			// Curve handles are green (with the white outline from SplinePointHandle) so they read
+			// as distinct from the red breakpoint dot, which can sit at the same midpoint.
+			var level1Color = new Color(0.3f, 0.8f, 0.4f);
+			var midpointColor = new Color(0.3f, 0.8f, 0.4f);
+			var level2Color = new Color(0.3f, 0.8f, 0.4f);
 
 			_quarterPointHandle = CreateSplineHandle(level1Color, BuildQuarterPointAccessors());
 			_midpointHandle = CreateSplineHandle(midpointColor, BuildMidpointAccessors());
@@ -505,6 +507,11 @@ namespace Nonatomic.VSM.Editor.Graph
 			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
 			var breakpoint = graph?.GraphViewData.GetTransitionBreakpoint(
 				ConnectionData.TargetNodeId, ConnectionData.SourceNodeId, ConnectionData.SourcePortName);
+
+			// Repaint the wire (bold red) when the breakpoint state changes.
+			var wasBreakpoint = _hasBreakpoint;
+			_hasBreakpoint = breakpoint != null;
+			if (_hasBreakpoint != wasBreakpoint) UpdateVisuals();
 
 			if (breakpoint != null)
 			{
@@ -1010,6 +1017,16 @@ namespace Nonatomic.VSM.Editor.Graph
 				inputColor = transitionColor;
 			}
 
+			// A breakpoint'd transition is painted bold red so it stands out from the handles.
+			if (_hasBreakpoint)
+			{
+				var breakpointRed = new Color(0.9f, 0.15f, 0.15f);
+				inputColor = breakpointRed;
+				outputColor = breakpointRed;
+			}
+
+			_wireEdgeControl?.SetEmphasized(_hasBreakpoint);
+
 			if (_wireEdgeControl != null)
 			{
 				_wireEdgeControl.SetWireColors(inputColor, outputColor);
@@ -1406,12 +1423,12 @@ namespace Nonatomic.VSM.Editor.Graph
 			Add(_mainHandle);
 
 			// Tangent handle (incoming direction - opposite of tangent)
-			_tangentHandleIn = CreateTangentHandle(new Color(0.5f, 0.8f, 0.5f));
+			_tangentHandleIn = CreateTangentHandle(new Color(0.3f, 0.8f, 0.4f));
 			_tangentHandleIn.style.display = DisplayStyle.None; // Hidden by default
 			Add(_tangentHandleIn);
 
 			// Tangent handle (outgoing direction - along tangent)
-			_tangentHandleOut = CreateTangentHandle(new Color(0.8f, 0.5f, 0.5f));
+			_tangentHandleOut = CreateTangentHandle(new Color(0.3f, 0.8f, 0.4f));
 			_tangentHandleOut.style.display = DisplayStyle.None; // Hidden by default
 			Add(_tangentHandleOut);
 		}
