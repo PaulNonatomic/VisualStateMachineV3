@@ -2618,6 +2618,34 @@ namespace Nonatomic.VSM.Editor.Graph
 			}
 		}
 
+		/// <summary>
+		/// Lights a persistent breakpoint-hit highlight on the paused node, clearing any previous one.
+		/// </summary>
+		public void ShowBreakpointHit(string nodeId)
+		{
+			ClearBreakpointHit();
+			if (string.IsNullOrEmpty(nodeId)) return;
+
+			if (_nodeViews.TryGetValue(nodeId, out var nodeView) && nodeView is StateNodeView stateNodeView)
+			{
+				stateNodeView.SetBreakpointHit(true);
+			}
+		}
+
+		/// <summary>
+		/// Clears the breakpoint-hit highlight from all nodes (on resume or when play mode stops).
+		/// </summary>
+		public void ClearBreakpointHit()
+		{
+			foreach (var nodeView in _nodeViews.Values)
+			{
+				if (nodeView is StateNodeView stateNodeView)
+				{
+					stateNodeView.SetBreakpointHit(false);
+				}
+			}
+		}
+
 		public void CenterOnState(string nodeId, bool animate = true)
 		{
 			if (!_nodeViews.TryGetValue(nodeId, out var nodeView))
