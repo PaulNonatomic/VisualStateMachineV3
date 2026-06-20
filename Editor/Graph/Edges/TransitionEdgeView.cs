@@ -488,6 +488,11 @@ namespace Nonatomic.VSM.Editor.Graph
 			if (graph != GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset) return;
 			if (nodeId != null && nodeId != ConnectionData.TargetNodeId) return;
 			UpdateBreakpointIndicator();
+
+			// Force an immediate redraw. The UIElements scheduler is throttled while the editor
+			// window is idle, so the dot + emphasized wire otherwise only appear once the window
+			// next regains focus.
+			EditorWindow.focusedWindow?.Repaint();
 		}
 
 		/// <summary>
