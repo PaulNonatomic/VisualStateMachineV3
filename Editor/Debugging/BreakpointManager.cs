@@ -29,6 +29,15 @@ namespace Nonatomic.VSM.Editor.Debugging
 		public static event Action<string, string, Breakpoint> OnBreakpointHit;
 		public static event Action<StateMachineGraph, string> OnBreakpointToggled;
 
+		/// <summary>Raised when a breakpoint indicator is clicked, so the panel can highlight its row.</summary>
+		public static event Action<StateMachineGraph, string> OnBreakpointSelected;
+
+		/// <summary>Fires <see cref="OnBreakpointSelected"/> for the given breakpoint.</summary>
+		public static void RequestSelectBreakpoint(StateMachineGraph graph, string breakpointId)
+		{
+			OnBreakpointSelected?.Invoke(graph, breakpointId);
+		}
+
 		static BreakpointManager()
 		{
 			_globalEnabled = EditorPrefs.GetBool("VSM.Breakpoints.GlobalEnabled", true);

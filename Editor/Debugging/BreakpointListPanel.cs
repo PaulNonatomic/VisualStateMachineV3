@@ -80,12 +80,14 @@ namespace Nonatomic.VSM.Editor.Debugging
 			// Subscribe to changes
 			BreakpointManager.OnBreakpointToggled += HandleBreakpointToggled;
 			BreakpointManager.OnGlobalEnabledChanged += HandleGlobalEnabledChanged;
+			BreakpointManager.OnBreakpointSelected += HandleBreakpointSelected;
 
 			// Unsubscribe when removed from panel to avoid leaks
 			RegisterCallback<DetachFromPanelEvent>(_ =>
 			{
 				BreakpointManager.OnBreakpointToggled -= HandleBreakpointToggled;
 				BreakpointManager.OnGlobalEnabledChanged -= HandleGlobalEnabledChanged;
+				BreakpointManager.OnBreakpointSelected -= HandleBreakpointSelected;
 			});
 
 			// Start hidden
@@ -115,9 +117,36 @@ namespace Nonatomic.VSM.Editor.Debugging
 			}
 		}
 
+		private void HandleBreakpointSelected(StateMachineGraph graph, string breakpointId)
+		{
+			if (graph != _graph) return;
+			SetVisible(true);
+			Refresh();
+			HighlightBreakpoint(breakpointId);
+		}
+
+		/// <summary>
+		/// Tints the row for the given breakpoint and scrolls it into view; clears the tint on the rest.
+		/// </summary>
+		private void HighlightBreakpoint(string breakpointId)
+		{
+			foreach (var child in _listScroll.contentContainer.Children())
+			{
+				var isMatch = (child.userData as string) == breakpointId;
+				child.style.backgroundColor = isMatch
+					? new StyleColor(new Color(0.22f, 0.38f, 0.55f))
+					: new StyleColor(StyleKeyword.Null);
+				if (isMatch)
+				{
+					_listScroll.ScrollTo(child);
+				}
+			}
+		}
+
 		private VisualElement CreateBreakpointRow(Breakpoint breakpoint)
 		{
 			var row = new VisualElement();
+			row.userData = breakpoint.Id;
 			row.style.flexDirection = FlexDirection.Row;
 			row.style.alignItems = Align.Center;
 			row.style.paddingTop = 3;
