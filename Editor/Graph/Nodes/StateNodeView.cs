@@ -35,6 +35,11 @@ namespace Nonatomic.VSM.Editor.Graph
 
 		private ActiveStateIndicator _activeStateIndicator;
 		private BreakpointIndicator _breakpointIndicator;
+		private VisualElement _breakpointHitBorder;
+		private bool _breakpointHitActive;
+		private double _breakpointHitLastTime;
+		private float _breakpointHitPhase;
+		private static readonly Color BreakpointHitColor = new Color(0.95f, 0.2f, 0.2f);
 		private Color _titleColor = new Color(0.3f, 0.3f, 0.35f); // Default state node color
 
 		public StateNodeView(StateNode stateNode, StateMachineGraphView graphView)
@@ -66,6 +71,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			RegisterCallback<DetachFromPanelEvent>(_ =>
 			{
 				BreakpointManager.OnBreakpointToggled -= HandleBreakpointToggled;
+				EditorApplication.update -= UpdateBreakpointHitPulse;
 			});
 		}
 
@@ -73,6 +79,23 @@ namespace Nonatomic.VSM.Editor.Graph
 		{
 			// Add active state indicator
 			_activeStateIndicator = new ActiveStateIndicator(this, mainContainer, titleContainer);
+
+			// Breakpoint-hit highlight: a red pulsing border shown while execution is paused on this
+			// node's breakpoint, so it's unmistakable the runtime stopped here rather than hung.
+			_breakpointHitBorder = new VisualElement();
+			_breakpointHitBorder.style.position = Position.Absolute;
+			_breakpointHitBorder.style.top = 0;
+			_breakpointHitBorder.style.left = 0;
+			_breakpointHitBorder.style.right = 0;
+			_breakpointHitBorder.style.bottom = 0;
+			_breakpointHitBorder.style.borderTopWidth = 3;
+			_breakpointHitBorder.style.borderBottomWidth = 3;
+			_breakpointHitBorder.style.borderLeftWidth = 3;
+			_breakpointHitBorder.style.borderRightWidth = 3;
+			_breakpointHitBorder.style.display = DisplayStyle.None;
+			_breakpointHitBorder.pickingMode = PickingMode.Ignore;
+			SetBreakpointHitBorderColor(BreakpointHitColor);
+			mainContainer.Add(_breakpointHitBorder);
 
 			// Add breakpoint indicator
 			_breakpointIndicator = new BreakpointIndicator(titleContainer);
@@ -737,6 +760,56 @@ namespace Nonatomic.VSM.Editor.Graph
 		public void FlashBreakpointHit()
 		{
 			_breakpointIndicator?.Flash();
+		}
+
+		/// <summary>
+		/// Shows or hides a persistent red pulsing border while execution is paused on this node's
+		/// breakpoint. It stays lit until execution resumes so a breakpoint pause can't be mistaken
+		/// for a hang.
+		/// </summary>
+		public void SetBreakpointHit(bool hit)
+		{
+			if (_breakpointHitBorder == null) return;
+
+			if (hit)
+			{
+				_breakpointHitActive = true;
+				_breakpointHitPhase = 0f;
+				_breakpointHitLastTime = EditorApplication.timeSinceStartup;
+				_breakpointHitBorder.style.display = DisplayStyle.Flex;
+				EditorApplication.update -= UpdateBreakpointHitPulse;
+				EditorApplication.update += UpdateBreakpointHitPulse;
+			}
+			else
+			{
+				_breakpointHitActive = false;
+				EditorApplication.update -= UpdateBreakpointHitPulse;
+				_breakpointHitBorder.style.display = DisplayStyle.None;
+			}
+		}
+
+		private void UpdateBreakpointHitPulse()
+		{
+			if (!_breakpointHitActive)
+			{
+				EditorApplication.update -= UpdateBreakpointHitPulse;
+				return;
+			}
+
+			var now = EditorApplication.timeSinceStartup;
+			_breakpointHitPhase += (float)(now - _breakpointHitLastTime) * 2f * Mathf.PI;
+			_breakpointHitLastTime = now;
+
+			var pulse = 0.5f + 0.5f * Mathf.Sin(_breakpointHitPhase);
+			SetBreakpointHitBorderColor(new Color(BreakpointHitColor.r, BreakpointHitColor.g, BreakpointHitColor.b, pulse));
+		}
+
+		private void SetBreakpointHitBorderColor(Color color)
+		{
+			_breakpointHitBorder.style.borderTopColor = color;
+			_breakpointHitBorder.style.borderBottomColor = color;
+			_breakpointHitBorder.style.borderLeftColor = color;
+			_breakpointHitBorder.style.borderRightColor = color;
 		}
 
 		private void UpdateBreakpointIndicator()
