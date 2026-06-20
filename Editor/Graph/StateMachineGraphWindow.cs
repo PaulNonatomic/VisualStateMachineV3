@@ -704,17 +704,17 @@ namespace Nonatomic.VSM.Editor.Graph
 			}
 		}
 
-		private void OnBreakpointHit(string nodeId, string nodeName)
+		private void OnBreakpointHit(string nodeId, string nodeName, Breakpoint breakpoint)
 		{
 			if (string.IsNullOrEmpty(nodeId)) return;
 
 			// Flash + light a persistent highlight on the paused node in whichever view shows it.
 			_primaryGraphView?.FlashBreakpointHit(nodeId);
-			_primaryGraphView?.ShowBreakpointHit(nodeId);
+			_primaryGraphView?.ShowBreakpointHit(breakpoint, nodeName);
 			if (_splitViewContainer?.IsSplitEnabled == true)
 			{
 				_secondaryGraphView?.FlashBreakpointHit(nodeId);
-				_secondaryGraphView?.ShowBreakpointHit(nodeId);
+				_secondaryGraphView?.ShowBreakpointHit(breakpoint, nodeName);
 			}
 			Repaint();
 		}
@@ -830,6 +830,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			if (state != PauseState.Unpaused) return;
 			_primaryGraphView?.ClearBreakpointHit();
 			_secondaryGraphView?.ClearBreakpointHit();
+			Repaint();
 		}
 
 		private void HandleEnteredEditMode()
