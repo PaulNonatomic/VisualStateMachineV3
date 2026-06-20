@@ -343,6 +343,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			_breakpointContainer.pickingMode = PickingMode.Ignore;
 			Add(_breakpointContainer);
 			_breakpointIndicator = new BreakpointIndicator(_breakpointContainer);
+			_breakpointIndicator.EnableClick(OnBreakpointDotClicked);
 
 			BreakpointManager.OnBreakpointToggled += HandleBreakpointToggled;
 			RegisterCallback<DetachFromPanelEvent>(_ => BreakpointManager.OnBreakpointToggled -= HandleBreakpointToggled);
@@ -584,6 +585,29 @@ namespace Nonatomic.VSM.Editor.Graph
 			if (_isBreakpointHit == hit) return;
 			_isBreakpointHit = hit;
 			UpdateVisuals();
+		}
+
+		/// <summary>
+		/// Click handler for the edge's breakpoint dot: highlights the breakpoint's row in the panel
+		/// and opens its quick actions (enable/disable, remove).
+		/// </summary>
+		private void OnBreakpointDotClicked(Rect dotWorldBound)
+		{
+			if (ConnectionData == null) return;
+
+			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
+			var breakpoint = graph?.GraphViewData.GetTransitionBreakpoint(
+				ConnectionData.TargetNodeId, ConnectionData.SourceNodeId, ConnectionData.SourcePortName);
+			if (breakpoint == null) return;
+
+			BreakpointManager.RequestSelectBreakpoint(graph, breakpoint.Id);
+
+			var menu = new GenericDropdownMenu();
+			menu.AddItem(breakpoint.Enabled ? "Disable Breakpoint" : "Enable Breakpoint", false,
+				() => BreakpointManager.SetBreakpointEnabled(graph, breakpoint.Id, !breakpoint.Enabled));
+			menu.AddItem("Remove Breakpoint", false,
+				() => BreakpointManager.RemoveBreakpoint(graph, breakpoint.Id));
+			menu.DropDown(dotWorldBound, this);
 		}
 
 		private void Subdivide()
