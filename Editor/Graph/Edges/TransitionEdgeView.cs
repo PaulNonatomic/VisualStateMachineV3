@@ -41,6 +41,7 @@ namespace Nonatomic.VSM.Editor.Graph
 		private BreakpointIndicator _breakpointIndicator;
 		private IVisualElementScheduledItem _bpReposition;
 		private bool _hasBreakpoint;
+		private bool _isBreakpointHit;
 
 		private SplinePointHandle _quarterPointHandle;
 		private SplinePointHandle _midpointHandle;
@@ -574,6 +575,17 @@ namespace Nonatomic.VSM.Editor.Graph
 			_breakpointIndicator?.Flash();
 		}
 
+		/// <summary>
+		/// Marks this edge as the transition execution is currently paused on, repainting it a
+		/// brighter red so it stands out from any other breakpoint'd edges.
+		/// </summary>
+		public void SetBreakpointHit(bool hit)
+		{
+			if (_isBreakpointHit == hit) return;
+			_isBreakpointHit = hit;
+			UpdateVisuals();
+		}
+
 		private void Subdivide()
 		{
 			if (ConnectionData == null || _wireEdgeControl == null) return;
@@ -1022,10 +1034,13 @@ namespace Nonatomic.VSM.Editor.Graph
 				inputColor = transitionColor;
 			}
 
-			// A breakpoint'd transition is painted bold red so it stands out from the handles.
+			// A breakpoint'd transition is painted bold red so it stands out from the handles; the
+			// specific transition execution is paused on is painted a brighter red to single it out.
 			if (_hasBreakpoint)
 			{
-				var breakpointRed = new Color(0.9f, 0.15f, 0.15f);
+				var breakpointRed = _isBreakpointHit
+					? new Color(1f, 0.5f, 0.35f)
+					: new Color(0.9f, 0.15f, 0.15f);
 				inputColor = breakpointRed;
 				outputColor = breakpointRed;
 			}

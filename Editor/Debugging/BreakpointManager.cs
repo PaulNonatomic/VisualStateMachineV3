@@ -26,7 +26,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 		}
 
 		public static event Action<bool> OnGlobalEnabledChanged;
-		public static event Action<string, string> OnBreakpointHit;
+		public static event Action<string, string, Breakpoint> OnBreakpointHit;
 		public static event Action<StateMachineGraph, string> OnBreakpointToggled;
 
 		static BreakpointManager()
@@ -65,7 +65,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 			{
 				breakpoint.HitCount++;
 				var nodeName = GetNodeName(info.Graph, nodeId);
-				OnBreakpointHit?.Invoke(nodeId, nodeName);
+				OnBreakpointHit?.Invoke(nodeId, nodeName, breakpoint);
 				Debug.Log($"[VSM Breakpoint] Hit breakpoint on '{nodeName}' (node {nodeId})");
 				EditorApplication.isPaused = true;
 			}
@@ -87,7 +87,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 			{
 				breakpoint.HitCount++;
 				var nodeName = GetNodeName(info.Graph, nodeId);
-				OnBreakpointHit?.Invoke(nodeId, nodeName);
+				OnBreakpointHit?.Invoke(nodeId, nodeName, breakpoint);
 				Debug.Log($"[VSM Breakpoint] Conditional breakpoint hit on '{nodeName}': {breakpoint.Condition}");
 				EditorApplication.isPaused = true;
 			}

@@ -2618,22 +2618,43 @@ namespace Nonatomic.VSM.Editor.Graph
 			}
 		}
 
+		private VisualElement _breakpointBanner;
+		private Label _breakpointBannerLabel;
+
 		/// <summary>
-		/// Lights a persistent breakpoint-hit highlight on the paused node, clearing any previous one.
+		/// Lights the persistent breakpoint-hit highlight: a red glow on the paused node, a brighter
+		/// red on the specific transition it was hit on, and a banner. Clears any previous hit first.
 		/// </summary>
-		public void ShowBreakpointHit(string nodeId)
+		public void ShowBreakpointHit(Breakpoint breakpoint, string nodeName)
 		{
 			ClearBreakpointHit();
-			if (string.IsNullOrEmpty(nodeId)) return;
+			if (breakpoint == null) return;
 
-			if (_nodeViews.TryGetValue(nodeId, out var nodeView) && nodeView is StateNodeView stateNodeView)
+			if (_nodeViews.TryGetValue(breakpoint.NodeId, out var nodeView) && nodeView is StateNodeView stateNodeView)
 			{
 				stateNodeView.SetBreakpointHit(true);
 			}
+
+			if (breakpoint.Type == BreakpointType.OnTransition)
+			{
+				var edge = edges.ToList()
+					.OfType<TransitionEdgeView>()
+					.FirstOrDefault(e => e.ConnectionData != null
+						&& e.ConnectionData.TargetNodeId == breakpoint.NodeId
+						&& e.ConnectionData.SourcePortName == breakpoint.TransitionPortName
+						&& (string.IsNullOrEmpty(breakpoint.SourceNodeId)
+							|| e.ConnectionData.SourceNodeId == breakpoint.SourceNodeId));
+				edge?.SetBreakpointHit(true);
+			}
+
+			EnsureBreakpointBanner();
+			_breakpointBannerLabel.text = $"Paused at breakpoint: {nodeName}";
+			_breakpointBanner.style.display = DisplayStyle.Flex;
 		}
 
 		/// <summary>
-		/// Clears the breakpoint-hit highlight from all nodes (on resume or when play mode stops).
+		/// Clears the breakpoint-hit highlight from all nodes and edges and hides the banner
+		/// (on resume or when play mode stops).
 		/// </summary>
 		public void ClearBreakpointHit()
 		{
@@ -2644,6 +2665,47 @@ namespace Nonatomic.VSM.Editor.Graph
 					stateNodeView.SetBreakpointHit(false);
 				}
 			}
+
+			foreach (var edge in edges.ToList().OfType<TransitionEdgeView>())
+			{
+				edge.SetBreakpointHit(false);
+			}
+
+			if (_breakpointBanner != null)
+			{
+				_breakpointBanner.style.display = DisplayStyle.None;
+			}
+		}
+
+		private void EnsureBreakpointBanner()
+		{
+			if (_breakpointBanner != null) return;
+
+			_breakpointBanner = new VisualElement();
+			_breakpointBanner.style.position = Position.Absolute;
+			_breakpointBanner.style.top = 8;
+			_breakpointBanner.style.left = 0;
+			_breakpointBanner.style.right = 0;
+			_breakpointBanner.style.flexDirection = FlexDirection.Row;
+			_breakpointBanner.style.justifyContent = Justify.Center;
+			_breakpointBanner.pickingMode = PickingMode.Ignore;
+			_breakpointBanner.style.display = DisplayStyle.None;
+
+			_breakpointBannerLabel = new Label();
+			_breakpointBannerLabel.style.backgroundColor = new Color(0.75f, 0.12f, 0.12f, 0.92f);
+			_breakpointBannerLabel.style.color = Color.white;
+			_breakpointBannerLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+			_breakpointBannerLabel.style.paddingLeft = 12;
+			_breakpointBannerLabel.style.paddingRight = 12;
+			_breakpointBannerLabel.style.paddingTop = 5;
+			_breakpointBannerLabel.style.paddingBottom = 5;
+			_breakpointBannerLabel.style.borderTopLeftRadius = 5;
+			_breakpointBannerLabel.style.borderTopRightRadius = 5;
+			_breakpointBannerLabel.style.borderBottomLeftRadius = 5;
+			_breakpointBannerLabel.style.borderBottomRightRadius = 5;
+			_breakpointBanner.Add(_breakpointBannerLabel);
+
+			Add(_breakpointBanner);
 		}
 
 		public void CenterOnState(string nodeId, bool animate = true)
