@@ -39,6 +39,9 @@ namespace Nonatomic.VSM.Editor.Graph
 		private VisualElement _hitOverlay;
 		private VisualElement _breakpointContainer;
 		private BreakpointIndicator _breakpointIndicator;
+		private IVisualElementScheduledItem _bpReposition;
+		private bool _hasBreakpoint;
+		private bool _isBreakpointHit;
 
 		private SplinePointHandle _quarterPointHandle;
 		private SplinePointHandle _midpointHandle;
@@ -268,10 +271,11 @@ namespace Nonatomic.VSM.Editor.Graph
 			_handleContainer.style.display = DisplayStyle.None;
 			Add(_handleContainer);
 
-			// Level 1 handles
-			var level1Color = new Color(0.4f, 0.7f, 1f);
-			var midpointColor = new Color(1f, 0.5f, 0f);
-			var level2Color = new Color(0.5f, 0.9f, 0.5f);
+			// Curve handles are green (with the white outline from SplinePointHandle) so they read
+			// as distinct from the red breakpoint dot, which can sit at the same midpoint.
+			var level1Color = new Color(0.3f, 0.8f, 0.4f);
+			var midpointColor = new Color(0.3f, 0.8f, 0.4f);
+			var level2Color = new Color(0.3f, 0.8f, 0.4f);
 
 			_quarterPointHandle = CreateSplineHandle(level1Color, BuildQuarterPointAccessors());
 			_midpointHandle = CreateSplineHandle(midpointColor, BuildMidpointAccessors());
@@ -339,6 +343,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			_breakpointContainer.pickingMode = PickingMode.Ignore;
 			Add(_breakpointContainer);
 			_breakpointIndicator = new BreakpointIndicator(_breakpointContainer);
+			_breakpointIndicator.EnableClick(OnBreakpointDotClicked);
 
 			BreakpointManager.OnBreakpointToggled += HandleBreakpointToggled;
 			RegisterCallback<DetachFromPanelEvent>(_ => BreakpointManager.OnBreakpointToggled -= HandleBreakpointToggled);
@@ -463,21 +468,19 @@ namespace Nonatomic.VSM.Editor.Graph
 
 			var targetNodeId = ConnectionData.TargetNodeId;
 			var portName = ConnectionData.SourcePortName;
+			var sourceNodeId = ConnectionData.SourceNodeId;
 			if (string.IsNullOrEmpty(targetNodeId)) return;
 
 			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
 			if (graph == null) return;
 
-			var existing = graph.GraphViewData.GetBreakpointForNode(targetNodeId);
-			var isThisTransitionBreakpoint = existing != null
-				&& existing.Type == BreakpointType.OnTransition
-				&& existing.TransitionPortName == portName;
-			var label = isThisTransitionBreakpoint ? "Remove Transition Breakpoint" : "Add Transition Breakpoint";
+			var existing = graph.GraphViewData.GetTransitionBreakpoint(targetNodeId, sourceNodeId, portName);
+			var label = existing != null ? "Remove Transition Breakpoint" : "Add Transition Breakpoint";
 
 			evt.menu.AppendSeparator();
 			evt.menu.AppendAction(
 				label,
-				_ => BreakpointManager.ToggleTransitionBreakpoint(graph, targetNodeId, portName),
+				_ => BreakpointManager.ToggleTransitionBreakpoint(graph, targetNodeId, portName, sourceNodeId),
 				DropdownMenuAction.AlwaysEnabled);
 		}
 
@@ -487,6 +490,11 @@ namespace Nonatomic.VSM.Editor.Graph
 			if (graph != GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset) return;
 			if (nodeId != null && nodeId != ConnectionData.TargetNodeId) return;
 			UpdateBreakpointIndicator();
+
+			// Force an immediate redraw. The UIElements scheduler is throttled while the editor
+			// window is idle, so the dot + emphasized wire otherwise only appear once the window
+			// next regains focus.
+			EditorWindow.focusedWindow?.Repaint();
 		}
 
 		/// <summary>
@@ -504,19 +512,34 @@ namespace Nonatomic.VSM.Editor.Graph
 			}
 
 			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
-			var breakpoint = graph?.GraphViewData.GetBreakpointForNode(ConnectionData.TargetNodeId);
-			var isThisTransition = breakpoint != null
-				&& breakpoint.Type == BreakpointType.OnTransition
-				&& breakpoint.TransitionPortName == ConnectionData.SourcePortName;
+			var breakpoint = graph?.GraphViewData.GetTransitionBreakpoint(
+				ConnectionData.TargetNodeId, ConnectionData.SourceNodeId, ConnectionData.SourcePortName);
 
-			if (isThisTransition)
+			// Repaint the wire (bold red) when the breakpoint state changes.
+			var wasBreakpoint = _hasBreakpoint;
+			_hasBreakpoint = breakpoint != null;
+			if (_hasBreakpoint != wasBreakpoint) UpdateVisuals();
+
+			if (breakpoint != null)
 			{
 				_breakpointIndicator.Show(breakpoint.Enabled, !string.IsNullOrEmpty(breakpoint.Condition));
 				UpdateBreakpointIndicatorPosition();
+
+				// The edge's own geometry events don't fire reliably while connected nodes are
+				// dragged, so re-anchor to the midpoint on a light schedule while the dot is shown.
+				if (_bpReposition == null)
+				{
+					_bpReposition = schedule.Execute(UpdateBreakpointIndicatorPosition).Every(50);
+				}
+				else
+				{
+					_bpReposition.Resume();
+				}
 			}
 			else
 			{
 				_breakpointIndicator.Hide();
+				_bpReposition?.Pause();
 			}
 		}
 
@@ -551,6 +574,40 @@ namespace Nonatomic.VSM.Editor.Graph
 		public void FlashBreakpointHit()
 		{
 			_breakpointIndicator?.Flash();
+		}
+
+		/// <summary>
+		/// Marks this edge as the transition execution is currently paused on, repainting it a
+		/// brighter red so it stands out from any other breakpoint'd edges.
+		/// </summary>
+		public void SetBreakpointHit(bool hit)
+		{
+			if (_isBreakpointHit == hit) return;
+			_isBreakpointHit = hit;
+			UpdateVisuals();
+		}
+
+		/// <summary>
+		/// Click handler for the edge's breakpoint dot: highlights the breakpoint's row in the panel
+		/// and opens its quick actions (enable/disable, remove).
+		/// </summary>
+		private void OnBreakpointDotClicked(Rect dotWorldBound)
+		{
+			if (ConnectionData == null) return;
+
+			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
+			var breakpoint = graph?.GraphViewData.GetTransitionBreakpoint(
+				ConnectionData.TargetNodeId, ConnectionData.SourceNodeId, ConnectionData.SourcePortName);
+			if (breakpoint == null) return;
+
+			BreakpointManager.RequestSelectBreakpoint(graph, breakpoint.Id);
+
+			var menu = new GenericDropdownMenu();
+			menu.AddItem(breakpoint.Enabled ? "Disable Breakpoint" : "Enable Breakpoint", false,
+				() => BreakpointManager.SetBreakpointEnabled(graph, breakpoint.Id, !breakpoint.Enabled));
+			menu.AddItem("Remove Breakpoint", false,
+				() => BreakpointManager.RemoveBreakpoint(graph, breakpoint.Id));
+			menu.DropDown(dotWorldBound, this);
 		}
 
 		private void Subdivide()
@@ -1001,6 +1058,19 @@ namespace Nonatomic.VSM.Editor.Graph
 				inputColor = transitionColor;
 			}
 
+			// A breakpoint'd transition is painted bold red so it stands out from the handles; the
+			// specific transition execution is paused on is painted a brighter red to single it out.
+			if (_hasBreakpoint)
+			{
+				var breakpointRed = _isBreakpointHit
+					? new Color(1f, 0.5f, 0.35f)
+					: new Color(0.9f, 0.15f, 0.15f);
+				inputColor = breakpointRed;
+				outputColor = breakpointRed;
+			}
+
+			_wireEdgeControl?.SetEmphasized(_hasBreakpoint);
+
 			if (_wireEdgeControl != null)
 			{
 				_wireEdgeControl.SetWireColors(inputColor, outputColor);
@@ -1397,12 +1467,12 @@ namespace Nonatomic.VSM.Editor.Graph
 			Add(_mainHandle);
 
 			// Tangent handle (incoming direction - opposite of tangent)
-			_tangentHandleIn = CreateTangentHandle(new Color(0.5f, 0.8f, 0.5f));
+			_tangentHandleIn = CreateTangentHandle(new Color(0.3f, 0.8f, 0.4f));
 			_tangentHandleIn.style.display = DisplayStyle.None; // Hidden by default
 			Add(_tangentHandleIn);
 
 			// Tangent handle (outgoing direction - along tangent)
-			_tangentHandleOut = CreateTangentHandle(new Color(0.8f, 0.5f, 0.5f));
+			_tangentHandleOut = CreateTangentHandle(new Color(0.3f, 0.8f, 0.4f));
 			_tangentHandleOut.style.display = DisplayStyle.None; // Hidden by default
 			Add(_tangentHandleOut);
 		}

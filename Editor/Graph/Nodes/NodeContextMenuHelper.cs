@@ -52,7 +52,8 @@ namespace Nonatomic.VSM.Editor.Graph
 			// Breakpoint actions (only for state nodes with a graph)
 			if (graph != null && nodeDataProvider?.NodeData is StateNode)
 			{
-				var hasBreakpoint = graph.GraphViewData.GetBreakpointForNode(nodeId) != null;
+				var breakpoint = graph.GraphViewData.GetNodeEntryBreakpoint(nodeId);
+				var hasBreakpoint = breakpoint != null;
 				var breakpointLabel = hasBreakpoint ? "Remove Breakpoint" : "Add Breakpoint";
 
 				evt.menu.AppendSeparator();
@@ -63,11 +64,10 @@ namespace Nonatomic.VSM.Editor.Graph
 
 				if (hasBreakpoint)
 				{
-					var breakpoint = graph.GraphViewData.GetBreakpointForNode(nodeId);
 					var enableLabel = breakpoint.Enabled ? "Disable Breakpoint" : "Enable Breakpoint";
 					evt.menu.AppendAction(
 						enableLabel,
-						_ => BreakpointManager.SetBreakpointEnabled(graph, nodeId, !breakpoint.Enabled),
+						_ => BreakpointManager.SetBreakpointEnabled(graph, breakpoint.Id, !breakpoint.Enabled),
 						DropdownMenuAction.AlwaysEnabled);
 
 					evt.menu.AppendAction(

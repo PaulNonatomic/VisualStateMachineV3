@@ -2605,7 +2605,9 @@ namespace Nonatomic.VSM.Editor.Graph
 					.OfType<TransitionEdgeView>()
 					.FirstOrDefault(e => e.ConnectionData != null
 						&& e.ConnectionData.TargetNodeId == nodeId
-						&& e.ConnectionData.SourcePortName == breakpoint.TransitionPortName);
+						&& e.ConnectionData.SourcePortName == breakpoint.TransitionPortName
+						&& (string.IsNullOrEmpty(breakpoint.SourceNodeId)
+							|| e.ConnectionData.SourceNodeId == breakpoint.SourceNodeId));
 				edge?.FlashBreakpointHit();
 				return;
 			}
@@ -2614,6 +2616,105 @@ namespace Nonatomic.VSM.Editor.Graph
 			{
 				stateNodeView.FlashBreakpointHit();
 			}
+		}
+
+		private VisualElement _breakpointBanner;
+		private Label _breakpointBannerLabel;
+
+		/// <summary>
+		/// Lights the persistent breakpoint-hit highlight: a red glow on the paused node, a brighter
+		/// red on the specific transition it was hit on, and a banner. Clears any previous hit first.
+		/// </summary>
+		public void ShowBreakpointHit(Breakpoint breakpoint, string nodeName)
+		{
+			ClearBreakpointHit();
+			if (breakpoint == null) return;
+
+			if (_nodeViews.TryGetValue(breakpoint.NodeId, out var nodeView) && nodeView is StateNodeView stateNodeView)
+			{
+				stateNodeView.SetBreakpointHit(true);
+			}
+
+			if (breakpoint.Type == BreakpointType.OnTransition)
+			{
+				var edge = edges.ToList()
+					.OfType<TransitionEdgeView>()
+					.FirstOrDefault(e => e.ConnectionData != null
+						&& e.ConnectionData.TargetNodeId == breakpoint.NodeId
+						&& e.ConnectionData.SourcePortName == breakpoint.TransitionPortName
+						&& (string.IsNullOrEmpty(breakpoint.SourceNodeId)
+							|| e.ConnectionData.SourceNodeId == breakpoint.SourceNodeId));
+				edge?.SetBreakpointHit(true);
+			}
+
+			EnsureBreakpointBanner();
+			_breakpointBannerLabel.text = $"Paused at breakpoint: {nodeName}";
+			_breakpointBanner.style.display = DisplayStyle.Flex;
+		}
+
+		/// <summary>
+		/// Clears the breakpoint-hit highlight from all nodes and edges and hides the banner
+		/// (on resume or when play mode stops).
+		/// </summary>
+		public void ClearBreakpointHit()
+		{
+			foreach (var nodeView in _nodeViews.Values)
+			{
+				if (nodeView is StateNodeView stateNodeView)
+				{
+					stateNodeView.SetBreakpointHit(false);
+				}
+			}
+
+			foreach (var edge in edges.ToList().OfType<TransitionEdgeView>())
+			{
+				edge.SetBreakpointHit(false);
+			}
+
+			if (_breakpointBanner != null)
+			{
+				_breakpointBanner.style.display = DisplayStyle.None;
+			}
+		}
+
+		private void EnsureBreakpointBanner()
+		{
+			if (_breakpointBanner != null) return;
+
+			_breakpointBanner = new VisualElement();
+			_breakpointBanner.style.position = Position.Absolute;
+			_breakpointBanner.style.top = 8;
+			_breakpointBanner.style.left = 0;
+			_breakpointBanner.style.right = 0;
+			_breakpointBanner.style.flexDirection = FlexDirection.Row;
+			_breakpointBanner.style.justifyContent = Justify.Center;
+			_breakpointBanner.pickingMode = PickingMode.Ignore;
+			_breakpointBanner.style.display = DisplayStyle.None;
+
+			_breakpointBannerLabel = new Label();
+			_breakpointBannerLabel.style.backgroundColor = new Color(0.85f, 0.13f, 0.13f, 1f);
+			_breakpointBannerLabel.style.color = Color.white;
+			_breakpointBannerLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+			_breakpointBannerLabel.style.fontSize = 13;
+			_breakpointBannerLabel.style.paddingLeft = 14;
+			_breakpointBannerLabel.style.paddingRight = 14;
+			_breakpointBannerLabel.style.paddingTop = 6;
+			_breakpointBannerLabel.style.paddingBottom = 6;
+			_breakpointBannerLabel.style.borderTopWidth = 1;
+			_breakpointBannerLabel.style.borderBottomWidth = 1;
+			_breakpointBannerLabel.style.borderLeftWidth = 1;
+			_breakpointBannerLabel.style.borderRightWidth = 1;
+			_breakpointBannerLabel.style.borderTopColor = new Color(0.3f, 0.02f, 0.02f);
+			_breakpointBannerLabel.style.borderBottomColor = new Color(0.3f, 0.02f, 0.02f);
+			_breakpointBannerLabel.style.borderLeftColor = new Color(0.3f, 0.02f, 0.02f);
+			_breakpointBannerLabel.style.borderRightColor = new Color(0.3f, 0.02f, 0.02f);
+			_breakpointBannerLabel.style.borderTopLeftRadius = 5;
+			_breakpointBannerLabel.style.borderTopRightRadius = 5;
+			_breakpointBannerLabel.style.borderBottomLeftRadius = 5;
+			_breakpointBannerLabel.style.borderBottomRightRadius = 5;
+			_breakpointBanner.Add(_breakpointBannerLabel);
+
+			Add(_breakpointBanner);
 		}
 
 		public void CenterOnState(string nodeId, bool animate = true)

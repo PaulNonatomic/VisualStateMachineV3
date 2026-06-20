@@ -532,6 +532,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			RuntimeInstanceTracker.OnChildInstanceStopped += OnChildInstanceStopped;
 			EditorApplication.update += OnEditorUpdate;
 			EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+			EditorApplication.pauseStateChanged += OnPauseStateChanged;
 			BreakpointManager.OnBreakpointHit += OnBreakpointHit;
 
 			// Selection sync
@@ -570,6 +571,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			RuntimeInstanceTracker.OnChildInstanceStopped -= OnChildInstanceStopped;
 			EditorApplication.update -= OnEditorUpdate;
 			EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+			EditorApplication.pauseStateChanged -= OnPauseStateChanged;
 			BreakpointManager.OnBreakpointHit -= OnBreakpointHit;
 
 			// Selection sync
@@ -702,15 +704,17 @@ namespace Nonatomic.VSM.Editor.Graph
 			}
 		}
 
-		private void OnBreakpointHit(string nodeId, string nodeName)
+		private void OnBreakpointHit(string nodeId, string nodeName, Breakpoint breakpoint)
 		{
 			if (string.IsNullOrEmpty(nodeId)) return;
 
-			// Flash the breakpoint indicator on the paused node in whichever view shows it.
+			// Flash + light a persistent highlight on the paused node in whichever view shows it.
 			_primaryGraphView?.FlashBreakpointHit(nodeId);
+			_primaryGraphView?.ShowBreakpointHit(breakpoint, nodeName);
 			if (_splitViewContainer?.IsSplitEnabled == true)
 			{
 				_secondaryGraphView?.FlashBreakpointHit(nodeId);
+				_secondaryGraphView?.ShowBreakpointHit(breakpoint, nodeName);
 			}
 			Repaint();
 		}
@@ -820,11 +824,24 @@ namespace Nonatomic.VSM.Editor.Graph
 			}
 		}
 
+		private void OnPauseStateChanged(PauseState state)
+		{
+			// When execution resumes, drop the breakpoint-hit highlight so it doesn't linger.
+			if (state != PauseState.Unpaused) return;
+			_primaryGraphView?.ClearBreakpointHit();
+			_secondaryGraphView?.ClearBreakpointHit();
+			Repaint();
+		}
+
 		private void HandleEnteredEditMode()
 		{
 			_debugTimelinePanel?.SetVisible(false);
 			_toolbarView?.SetTimelineToggleValue(false);
 			_toolbarView?.SetTimelineToggleVisible(false);
+
+			// Drop any breakpoint-hit highlight left over from a paused session.
+			_primaryGraphView?.ClearBreakpointHit();
+			_secondaryGraphView?.ClearBreakpointHit();
 
 			// Unlock graph views for editing
 			_primaryGraphView?.SetPlayModeLocked(false);

@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -34,10 +35,33 @@ namespace Nonatomic.VSM.Editor.Debugging
 			_dot.style.borderBottomLeftRadius = 6;
 			_dot.style.borderBottomRightRadius = 6;
 			_dot.style.backgroundColor = BreakpointColor;
+			_dot.style.borderTopWidth = 2;
+			_dot.style.borderBottomWidth = 2;
+			_dot.style.borderLeftWidth = 2;
+			_dot.style.borderRightWidth = 2;
+			_dot.style.borderTopColor = Color.black;
+			_dot.style.borderBottomColor = Color.black;
+			_dot.style.borderLeftColor = Color.black;
+			_dot.style.borderRightColor = Color.black;
 			_dot.style.display = DisplayStyle.None;
 			_dot.pickingMode = PickingMode.Ignore;
 
 			container.Add(_dot);
+		}
+
+		/// <summary>
+		/// Makes the dot clickable (opt-in; it's non-interactive by default). The callback receives
+		/// the dot's world rect, handy for anchoring a dropdown to it.
+		/// </summary>
+		public void EnableClick(Action<Rect> onClicked)
+		{
+			_dot.pickingMode = PickingMode.Position;
+			_dot.RegisterCallback<MouseDownEvent>(evt =>
+			{
+				if (evt.button != 0) return;
+				onClicked?.Invoke(_dot.worldBound);
+				evt.StopPropagation();
+			});
 		}
 
 		public void Show(bool enabled, bool conditional)
