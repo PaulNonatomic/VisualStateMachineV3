@@ -2692,13 +2692,22 @@ namespace Nonatomic.VSM.Editor.Graph
 			_breakpointBanner.style.display = DisplayStyle.None;
 
 			_breakpointBannerLabel = new Label();
-			_breakpointBannerLabel.style.backgroundColor = new Color(0.75f, 0.12f, 0.12f, 0.92f);
+			_breakpointBannerLabel.style.backgroundColor = new Color(0.85f, 0.13f, 0.13f, 1f);
 			_breakpointBannerLabel.style.color = Color.white;
 			_breakpointBannerLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
-			_breakpointBannerLabel.style.paddingLeft = 12;
-			_breakpointBannerLabel.style.paddingRight = 12;
-			_breakpointBannerLabel.style.paddingTop = 5;
-			_breakpointBannerLabel.style.paddingBottom = 5;
+			_breakpointBannerLabel.style.fontSize = 13;
+			_breakpointBannerLabel.style.paddingLeft = 14;
+			_breakpointBannerLabel.style.paddingRight = 14;
+			_breakpointBannerLabel.style.paddingTop = 6;
+			_breakpointBannerLabel.style.paddingBottom = 6;
+			_breakpointBannerLabel.style.borderTopWidth = 1;
+			_breakpointBannerLabel.style.borderBottomWidth = 1;
+			_breakpointBannerLabel.style.borderLeftWidth = 1;
+			_breakpointBannerLabel.style.borderRightWidth = 1;
+			_breakpointBannerLabel.style.borderTopColor = new Color(0.3f, 0.02f, 0.02f);
+			_breakpointBannerLabel.style.borderBottomColor = new Color(0.3f, 0.02f, 0.02f);
+			_breakpointBannerLabel.style.borderLeftColor = new Color(0.3f, 0.02f, 0.02f);
+			_breakpointBannerLabel.style.borderRightColor = new Color(0.3f, 0.02f, 0.02f);
 			_breakpointBannerLabel.style.borderTopLeftRadius = 5;
 			_breakpointBannerLabel.style.borderTopRightRadius = 5;
 			_breakpointBannerLabel.style.borderBottomLeftRadius = 5;
