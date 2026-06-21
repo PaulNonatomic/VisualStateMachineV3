@@ -1085,26 +1085,40 @@ The Runtime Monitor provides a live view of all running state machine instances 
 
 ### Breakpoints
 
-Set breakpoints on state nodes to pause the editor when specific states are entered during play mode.
+Pause the editor during play mode when a state is entered, so you can inspect the machine where it actually is. There are two kinds: a breakpoint on a **state node** pauses whenever that state is entered, and a breakpoint on a **transition edge** pauses only when the state is entered through that specific transition.
 
-#### Setting a Breakpoint
+#### Node breakpoints
 
 1. Right-click a state node in the graph editor
-2. Select **Add Breakpoint** - a red dot appears on the node
-3. Enter play mode - the editor pauses when that state is entered
+2. Select **Add Breakpoint** - a red dot appears in the node's corner
+3. Enter play mode - the editor pauses when that state is entered, by any path
+
+#### Transition breakpoints
+
+1. Right-click a transition edge
+2. Select **Add Transition Breakpoint** - the edge turns bold red with a red dot at its midpoint
+3. Enter play mode - the editor pauses only when the target state is entered through that edge
+
+Transition breakpoints are edge-specific: a state fed by several transitions can hold a separate breakpoint on each, listed individually, and the dot follows the edge as you move nodes. Click a transition's dot to open its quick actions (enable, disable, remove) and highlight its row in the Breakpoints panel.
 
 #### Breakpoint Types
 
-| Type              | Indicator  | Description                                          |
-|-------------------|------------|------------------------------------------------------|
-| **On Entry**      | Red dot    | Pauses whenever the state is entered                 |
-| **On Transition** | Red dot    | Pauses only when entered via a specific port         |
-| **Conditional**   | Orange dot | Pauses when a condition expression evaluates to true |
-| **Disabled**      | Gray dot   | Breakpoint exists but is inactive                    |
+| Type              | Indicator           | Pauses when                                           |
+|-------------------|---------------------|-------------------------------------------------------|
+| **On Entry**      | Red dot on the node | the state is entered by any transition                |
+| **On Transition** | Red dot on the edge | the state is entered through that specific transition |
+| **Conditional**   | Orange dot          | a condition expression evaluates to true on entry     |
+| **Disabled**      | Gray dot            | the breakpoint exists but is inactive                 |
+
+Curve-editing handles are drawn green with a white outline, so they stay distinct from the red breakpoint markers.
+
+#### When a breakpoint is hit
+
+A pause should never be mistaken for a hang, so a hit is made obvious: the paused node shows a persistent red glow, the transition it stopped on turns a brighter red, and a `Paused at breakpoint: <state>` banner appears at the top of the graph. All three clear when you resume or stop play.
 
 #### Conditional Breakpoint Expressions
 
-Right-click a breakpoint node and select **Edit Breakpoint Condition…** to open the condition editor. Supported syntax:
+Right-click a state node that has a breakpoint and select **Edit Breakpoint Condition...** to open the condition editor. Supported syntax:
 
 ```
 Health < 10          // Numeric comparison
@@ -1117,12 +1131,12 @@ GameOver             // Simple truthy check
 
 #### Breakpoint List Panel
 
-A sidebar panel in the graph editor (open it from the toolbar's **Windows** menu) shows all breakpoints for the current graph:
+A sidebar panel in the graph editor (open it from the toolbar's **Windows** menu) lists every breakpoint in the current graph: node breakpoints by state name, transition breakpoints by their source. From it you can:
 
-- Toggle individual breakpoints on/off
+- Toggle individual breakpoints on or off
 - Toggle all breakpoints globally
-- Click a node name to navigate to it in the graph
-- Clear all breakpoints at once
+- Click a name to navigate to it in the graph
+- Remove a breakpoint, or clear them all at once
 
 ### Transition Timeline
 
