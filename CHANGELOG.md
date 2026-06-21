@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- A breakpoint pause is now unmistakable rather than looking like a hang: the paused node shows a
+  persistent red glow, the transition it stopped on turns a brighter red, and a "Paused at
+  breakpoint" banner appears at the top of the graph, all cleared when execution resumes.
+- Click a transition breakpoint's dot to open its quick actions (enable, disable, remove) and
+  highlight its row in the Breakpoints panel.
+
+### Changed
+
+- Transition breakpoints are now edge-specific: a state fed by several transitions can hold a
+  separate breakpoint on each, listed individually, instead of a single breakpoint per node. Each
+  is drawn on its own edge as a bold red wire with a midpoint dot that follows the edge as nodes
+  move; curve-editing handles are recoloured green so they stay distinct from the red markers.
+
 ## [0.4.0] - 2026-06-12
 
 ### Added
