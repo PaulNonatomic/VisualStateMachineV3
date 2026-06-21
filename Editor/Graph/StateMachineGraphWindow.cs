@@ -535,6 +535,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			EditorApplication.pauseStateChanged += OnPauseStateChanged;
 			BreakpointManager.OnBreakpointHit += OnBreakpointHit;
 			BreakpointManager.OnRequestShowBreakpoint += HandleRequestShowBreakpoint;
+			BreakpointManager.OnBreakpointToggled += RepaintOnBreakpointChange;
 
 			// Selection sync
 			Selection.selectionChanged += OnSelectionChanged;
@@ -575,6 +576,8 @@ namespace Nonatomic.VSM.Editor.Graph
 			EditorApplication.pauseStateChanged -= OnPauseStateChanged;
 			BreakpointManager.OnBreakpointHit -= OnBreakpointHit;
 			BreakpointManager.OnRequestShowBreakpoint -= HandleRequestShowBreakpoint;
+			BreakpointManager.OnBreakpointToggled -= RepaintOnBreakpointChange;
+			EditorApplication.update -= PumpBreakpointRepaint;
 
 			// Selection sync
 			Selection.selectionChanged -= OnSelectionChanged;
@@ -1227,6 +1230,28 @@ namespace Nonatomic.VSM.Editor.Graph
 		private void HandleRequestShowBreakpoint(StateMachineGraph graph, string breakpointId)
 		{
 			_breakpointListPanel?.ShowAndHighlight(breakpointId);
+		}
+
+		private int _breakpointRepaintTicks;
+
+		// A one-off Repaint() doesn't flush the GraphView's regenerated edge wire for a programmatic
+		// (non-input) change while the editor is idle: the UI Toolkit panel only processes the dirtied
+		// mesh while it is actively ticking. Drive a short burst of editor ticks so the wire and dot
+		// redraw, the way they do during play mode (which ticks continuously).
+		private void RepaintOnBreakpointChange(StateMachineGraph graph, string nodeId)
+		{
+			_breakpointRepaintTicks = 6;
+			EditorApplication.update -= PumpBreakpointRepaint;
+			EditorApplication.update += PumpBreakpointRepaint;
+		}
+
+		private void PumpBreakpointRepaint()
+		{
+			Repaint();
+			if (--_breakpointRepaintTicks <= 0)
+			{
+				EditorApplication.update -= PumpBreakpointRepaint;
+			}
 		}
 
 		private void OnNavigationChanged()
