@@ -2717,6 +2717,22 @@ namespace Nonatomic.VSM.Editor.Graph
 			Add(_breakpointBanner);
 		}
 
+		/// <summary>Selects the transition edge that carries the given breakpoint, if it exists.</summary>
+		public void SelectBreakpointEdge(Breakpoint breakpoint)
+		{
+			if (breakpoint == null || breakpoint.Type != BreakpointType.OnTransition) return;
+
+			var edge = edges.ToList().OfType<TransitionEdgeView>().FirstOrDefault(e =>
+				e.ConnectionData != null &&
+				e.ConnectionData.TargetNodeId == breakpoint.NodeId &&
+				e.ConnectionData.SourceNodeId == breakpoint.SourceNodeId &&
+				e.ConnectionData.SourcePortName == breakpoint.TransitionPortName);
+			if (edge == null) return;
+
+			ClearSelection();
+			AddToSelection(edge);
+		}
+
 		public void CenterOnState(string nodeId, bool animate = true)
 		{
 			if (!_nodeViews.TryGetValue(nodeId, out var nodeView))

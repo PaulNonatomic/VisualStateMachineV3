@@ -32,10 +32,19 @@ namespace Nonatomic.VSM.Editor.Debugging
 		/// <summary>Raised when a breakpoint indicator is clicked, so the panel can highlight its row.</summary>
 		public static event Action<StateMachineGraph, string> OnBreakpointSelected;
 
+		/// <summary>Raised to open the Breakpoints panel and highlight a breakpoint (from the edge's context menu).</summary>
+		public static event Action<StateMachineGraph, string> OnRequestShowBreakpoint;
+
 		/// <summary>Fires <see cref="OnBreakpointSelected"/> for the given breakpoint.</summary>
 		public static void RequestSelectBreakpoint(StateMachineGraph graph, string breakpointId)
 		{
 			OnBreakpointSelected?.Invoke(graph, breakpointId);
+		}
+
+		/// <summary>Fires <see cref="OnRequestShowBreakpoint"/> for the given breakpoint.</summary>
+		public static void RequestShowBreakpoint(StateMachineGraph graph, string breakpointId)
+		{
+			OnRequestShowBreakpoint?.Invoke(graph, breakpointId);
 		}
 
 		static BreakpointManager()

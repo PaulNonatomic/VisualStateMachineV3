@@ -482,6 +482,14 @@ namespace Nonatomic.VSM.Editor.Graph
 				label,
 				_ => BreakpointManager.ToggleTransitionBreakpoint(graph, targetNodeId, portName, sourceNodeId),
 				DropdownMenuAction.AlwaysEnabled);
+
+			if (existing != null)
+			{
+				evt.menu.AppendAction(
+					"Open Breakpoints Window",
+					_ => BreakpointManager.RequestShowBreakpoint(graph, existing.Id),
+					DropdownMenuAction.AlwaysEnabled);
+			}
 		}
 
 		private void HandleBreakpointToggled(StateMachineGraph graph, string nodeId)
@@ -607,7 +615,7 @@ namespace Nonatomic.VSM.Editor.Graph
 				() => BreakpointManager.SetBreakpointEnabled(graph, breakpoint.Id, !breakpoint.Enabled));
 			menu.AddItem("Remove Breakpoint", false,
 				() => BreakpointManager.RemoveBreakpoint(graph, breakpoint.Id));
-			menu.DropDown(dotWorldBound, this);
+			menu.DropDown(dotWorldBound, this, false);
 		}
 
 		private void Subdivide()
@@ -1318,6 +1326,20 @@ namespace Nonatomic.VSM.Editor.Graph
 			base.OnSelected();
 			UpdateHandleVisibilityBasedOnSelection();
 			UpdateSelectionVisuals(true);
+			NotifyBreakpointSelected();
+		}
+
+		/// <summary>
+		/// If this edge carries a transition breakpoint, asks the Breakpoints panel to highlight its
+		/// row (the panel only reacts if it is open).
+		/// </summary>
+		private void NotifyBreakpointSelected()
+		{
+			if (ConnectionData == null) return;
+			var graph = GetFirstAncestorOfType<StateMachineGraphView>()?.CurrentAsset;
+			var breakpoint = graph?.GraphViewData.GetTransitionBreakpoint(
+				ConnectionData.TargetNodeId, ConnectionData.SourceNodeId, ConnectionData.SourcePortName);
+			if (breakpoint != null) BreakpointManager.RequestSelectBreakpoint(graph, breakpoint.Id);
 		}
 
 		/// <summary>

@@ -13,8 +13,9 @@ namespace Nonatomic.VSM.Editor.Debugging
 		private readonly Label _emptyLabel;
 		private readonly Toggle _globalToggle;
 		private StateMachineGraph _graph;
+		private bool _isVisible;
 
-		public event Action<string> OnNavigateToNode;
+		public event Action<Breakpoint> OnSelectBreakpoint;
 
 		public BreakpointListPanel(StateMachineGraphWindow window)
 			: base("Breakpoints", "Breakpoints", new Vector2(10, 310), new Vector2(300, 200))
@@ -81,6 +82,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 			BreakpointManager.OnBreakpointToggled += HandleBreakpointToggled;
 			BreakpointManager.OnGlobalEnabledChanged += HandleGlobalEnabledChanged;
 			BreakpointManager.OnBreakpointSelected += HandleBreakpointSelected;
+			OnVisibilityChanged += (_, visible) => _isVisible = visible;
 
 			// Unsubscribe when removed from panel to avoid leaks
 			RegisterCallback<DetachFromPanelEvent>(_ =>
@@ -119,7 +121,15 @@ namespace Nonatomic.VSM.Editor.Debugging
 
 		private void HandleBreakpointSelected(StateMachineGraph graph, string breakpointId)
 		{
-			if (graph != _graph) return;
+			// React only when this panel shows the graph and is already open. Opening is an explicit
+			// action (the edge's "Open Breakpoints Window"), handled by ShowAndHighlight.
+			if (graph != _graph || !_isVisible) return;
+			HighlightBreakpoint(breakpointId);
+		}
+
+		/// <summary>Opens the panel (if hidden) and highlights the given breakpoint.</summary>
+		public void ShowAndHighlight(string breakpointId)
+		{
 			SetVisible(true);
 			Refresh();
 			HighlightBreakpoint(breakpointId);
@@ -178,9 +188,15 @@ namespace Nonatomic.VSM.Editor.Debugging
 			dot.style.backgroundColor = GetDotColor(breakpoint);
 			row.Add(dot);
 
-			// Node name (clickable to navigate)
-			var nodeName = GetNodeDisplayName(breakpoint.NodeId);
-			var nameButton = new Button(() => OnNavigateToNode?.Invoke(breakpoint.NodeId))
+			// Name: "Origin -> Destination" for transitions, just the node for entry/conditional breakpoints.
+			var nodeName = breakpoint.Type == BreakpointType.OnTransition
+				? $"{GetNodeDisplayName(breakpoint.SourceNodeId)} -> {GetNodeDisplayName(breakpoint.NodeId)}"
+				: GetNodeDisplayName(breakpoint.NodeId);
+			var nameButton = new Button(() =>
+			{
+				HighlightBreakpoint(breakpoint.Id);
+				OnSelectBreakpoint?.Invoke(breakpoint);
+			})
 			{
 				text = nodeName
 			};
@@ -195,24 +211,7 @@ namespace Nonatomic.VSM.Editor.Debugging
 			nameButton.style.paddingLeft = 0;
 			row.Add(nameButton);
 
-			// Type/condition label
-			var typeText = breakpoint.Type switch
-			{
-				BreakpointType.OnEntry => "",
-				BreakpointType.OnTransition => $"{GetNodeDisplayName(breakpoint.SourceNodeId)} ({breakpoint.TransitionPortName})",
-				BreakpointType.Conditional => breakpoint.Condition ?? "",
-				_ => ""
-			};
-			if (!string.IsNullOrEmpty(typeText))
-			{
-				var typeLabel = new Label(typeText);
-				typeLabel.style.fontSize = 9;
-				typeLabel.style.color = new StyleColor(new Color(0.55f, 0.55f, 0.55f));
-				typeLabel.style.marginRight = 4;
-				typeLabel.style.maxWidth = 120;
-				typeLabel.style.overflow = Overflow.Hidden;
-				row.Add(typeLabel);
-			}
+			// Origin -> Destination is shown in the name above; no subtitle row.
 
 			// Remove button
 			var removeButton = new Button(() =>

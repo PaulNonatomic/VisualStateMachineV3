@@ -228,7 +228,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			// Create breakpoint list panel
 			_breakpointListPanel = new BreakpointListPanel(this);
 			_breakpointListPanel.OnVisibilityChanged += OnPanelVisibilityChanged;
-			_breakpointListPanel.OnNavigateToNode += OnNavigateToBreakpointNode;
+			_breakpointListPanel.OnSelectBreakpoint += OnSelectBreakpointFromPanel;
 			mainContainer.Add(_breakpointListPanel);
 
 			// Create node search bar (Ctrl+F overlay)
@@ -534,6 +534,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
 			EditorApplication.pauseStateChanged += OnPauseStateChanged;
 			BreakpointManager.OnBreakpointHit += OnBreakpointHit;
+			BreakpointManager.OnRequestShowBreakpoint += HandleRequestShowBreakpoint;
 
 			// Selection sync
 			Selection.selectionChanged += OnSelectionChanged;
@@ -573,6 +574,7 @@ namespace Nonatomic.VSM.Editor.Graph
 			EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
 			EditorApplication.pauseStateChanged -= OnPauseStateChanged;
 			BreakpointManager.OnBreakpointHit -= OnBreakpointHit;
+			BreakpointManager.OnRequestShowBreakpoint -= HandleRequestShowBreakpoint;
 
 			// Selection sync
 			Selection.selectionChanged -= OnSelectionChanged;
@@ -1215,10 +1217,16 @@ namespace Nonatomic.VSM.Editor.Graph
 			}
 		}
 
-		private void OnNavigateToBreakpointNode(string nodeId)
+		private void OnSelectBreakpointFromPanel(Breakpoint breakpoint)
 		{
-			if (_activeGraphView == null || string.IsNullOrEmpty(nodeId)) return;
-			_activeGraphView.CenterOnState(nodeId);
+			if (_activeGraphView == null || breakpoint == null) return;
+			_activeGraphView.CenterOnState(breakpoint.NodeId);
+			_activeGraphView.SelectBreakpointEdge(breakpoint);
+		}
+
+		private void HandleRequestShowBreakpoint(StateMachineGraph graph, string breakpointId)
+		{
+			_breakpointListPanel?.ShowAndHighlight(breakpointId);
 		}
 
 		private void OnNavigationChanged()
