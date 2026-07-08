@@ -607,7 +607,7 @@ namespace Nonatomic.VSM.Editor.Graph
 				() => BreakpointManager.SetBreakpointEnabled(graph, breakpoint.Id, !breakpoint.Enabled));
 			menu.AddItem("Remove Breakpoint", false,
 				() => BreakpointManager.RemoveBreakpoint(graph, breakpoint.Id));
-			menu.DropDown(dotWorldBound, this);
+			menu.DropDown(dotWorldBound, this, false);
 		}
 
 		private void Subdivide()
