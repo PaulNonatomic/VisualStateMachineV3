@@ -67,17 +67,17 @@ Feedback, bug reports, and PRs are welcome — open an issue or discussion on th
 
 ## Installation
 
-### Via Package Manager
+Add **Visual State Machine V3** to your Unity project via Package Manager:
 
-Add the following to your `Packages/manifest.json`:
+1. Open **Window > Package Manager**
+2. Click **+** > **Add package from git URL**
+3. Enter:
 
-```json
-{
-  "dependencies": {
-    "com.nonatomic.visualstatemachinev3": "https://github.com/PaulNonatomic/VisualStateMachineV3.git"
-  }
-}
 ```
+https://www.pkglnk.dev/visualstatemachinev3.git
+```
+
+[![pkglnk](https://www.pkglnk.dev/card/visualstatemachinev3.svg?variant=directory&theme=unity-violet)](https://www.pkglnk.dev/pkg/visualstatemachinev3)
 
 ### Manual Installation
 
