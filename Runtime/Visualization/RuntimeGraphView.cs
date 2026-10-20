@@ -26,7 +26,9 @@ namespace Nonatomic.VSM.Visualization
 	/// </summary>
 	public class RuntimeGraphView : VisualElement
 	{
+#if !UNITY_6000_6_OR_NEWER
 		public new class UxmlFactory : UxmlFactory<RuntimeGraphView, UxmlTraits> { }
+#endif
 
 		protected const string UssRoot = "vsm-rt";
 
