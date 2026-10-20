@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Click a transition breakpoint's dot to open its quick actions (enable, disable, remove) and
   highlight its row in the Breakpoints panel.
 
+### Fixed
+
+- The package compiles on Unity 6.6: the legacy `UxmlFactory`, `EndNameEditAction` and int-based asset
+  callbacks are replaced by their `EntityId` equivalents behind `UNITY_6000_6_OR_NEWER`.
+
 ### Changed
 
 - Transition breakpoints are now edge-specific: a state fed by several transitions can hold a

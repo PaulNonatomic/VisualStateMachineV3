@@ -8,9 +8,17 @@ namespace Nonatomic.VSM.Editor
 	/// <summary>
 	/// EndNameEditAction that creates and initializes a StateMachineGraph asset.
 	/// </summary>
+	#if UNITY_6000_6_OR_NEWER
+	internal class CreateStateMachineGraphAction : AssetCreationEndAction
+#else
 	internal class CreateStateMachineGraphAction : EndNameEditAction
+#endif
 	{
+#if UNITY_6000_6_OR_NEWER
+		public override void Action(EntityId entityId, string pathName, string resourceFile)
+#else
 		public override void Action(int instanceId, string pathName, string resourceFile)
+#endif
 		{
 			var asset = CreateInstance<StateMachineGraph>();
 			asset.InitializeNewGraph();
@@ -23,11 +31,19 @@ namespace Nonatomic.VSM.Editor
 	/// <summary>
 	/// EndNameEditAction that creates a StateMachineGraphVariant asset.
 	/// </summary>
+	#if UNITY_6000_6_OR_NEWER
+	internal class CreateStateMachineGraphVariantAction : AssetCreationEndAction
+#else
 	internal class CreateStateMachineGraphVariantAction : EndNameEditAction
+#endif
 	{
 		public StateMachineGraph BaseGraph { get; set; }
 
+#if UNITY_6000_6_OR_NEWER
+		public override void Action(EntityId entityId, string pathName, string resourceFile)
+#else
 		public override void Action(int instanceId, string pathName, string resourceFile)
+#endif
 		{
 			var asset = CreateInstance<StateMachineGraphVariant>();
 
@@ -54,7 +70,11 @@ namespace Nonatomic.VSM.Editor
 			var icon = EditorGUIUtility.IconContent("ScriptableObject Icon").image as Texture2D;
 
 			ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
+#if UNITY_6000_6_OR_NEWER
+				default(EntityId),
+#else
 				0,
+#endif
 				action,
 				"NewStateMachine.asset",
 				icon,
@@ -72,7 +92,11 @@ namespace Nonatomic.VSM.Editor
 				: "NewStateMachineVariant";
 
 			ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
+#if UNITY_6000_6_OR_NEWER
+				default(EntityId),
+#else
 				0,
+#endif
 				action,
 				$"{assetName}.asset",
 				icon,

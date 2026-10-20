@@ -67,9 +67,15 @@ namespace Nonatomic.VSM.Editor.Graph
 		}
 
 		[OnOpenAsset]
+#if UNITY_6000_6_OR_NEWER
+		public static bool OnOpenAsset(EntityId entityId, int line)
+		{
+			var asset = EditorUtility.EntityIdToObject(entityId) as StateMachineGraph;
+#else
 		public static bool OnOpenAsset(int instanceId, int line)
 		{
 			var asset = EditorUtility.EntityIdToObject(instanceId) as StateMachineGraph;
+#endif
 			if (asset != null)
 			{
 				OpenAsset(asset);
